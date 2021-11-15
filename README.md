@@ -11,4 +11,4 @@ Jevant Jedidia Augustine | 13520133
 ### Link
 Nama | Link
 -- | --
-Spesifkasi Tugas Besar | [go](https://docs.google.com/document/d/15iaOJ1DnSfNMVwf6HU0i5PdTpW8opQNcFwil6gcQzq4/edit?usp=sharing){:target="_blank" rel="noopener"}
+Spesifkasi Tugas Besar | https://docs.google.com/document/d/15iaOJ1DnSfNMVwf6HU0i5PdTpW8opQNcFwil6gcQzq4/edit?usp=sharing
