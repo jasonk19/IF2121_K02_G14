@@ -14,7 +14,7 @@ items(6,salmon,0,225,0,0,0).
 items(4,tuna,0,500,0,0,0).
 items(5,marlin,0,750,0,0,0).
 items(6,shark,0,1000,0,0,0).
-/ * Rare Fish */
+/* Rare Fish */
 items(7,treasure_chest,0,2500,0,0,0).
 
 /******** RANCH ********/
