@@ -1,10 +1,10 @@
 :- include('items.pl').
-:- dynamic(inventory/7).    
+:- dynamic(inventory/8).    
 
 inventoryCap(100).
 
 inventoryQty(Quantity) :-
-    findall(Qty, inventory(_,_,Qty,_,_,_,_), ListofQty),
+    findall(Qty, inventory(_,_,Qty,_,_,_,_,_), ListofQty),
     sumList(ListofQty,Quantity).
 
 sumList([], 0).
@@ -17,20 +17,20 @@ addItems(ItemName,Quantity) :-
     inventoryCap(Max),
     inventoryQty(Length),
     Length + Quantity =< Max,
-    \+inventory(_,ItemName,_,_,_,_,_),
-    items(ID,ItemName,Qty,Sell,Buy,FarmLevel,FishLevel),
+    \+inventory(_,ItemName,_,_,_,_,_,_),
+    items(ID,ItemName,Qty,Sell,Buy,FarmLevel,FishLevel,RanchLevel),
     Qty2 is Qty + Quantity,
-    asserta(inventory(ID,ItemName,Qty2,Sell,Buy,FarmLevel,FishLevel)),
+    asserta(inventory(ID,ItemName,Qty2,Sell,Buy,FarmLevel,FishLevel,RanchLevel)),
 	format('+~w ~w!', [Quantity, ItemName]),!.
 	
 addItems(ItemID,Quantity) :-
     inventoryCap(Max),
     inventoryQty(Length),
     Length + Quantity =< Max,
-    \+inventory(ItemID,_,_,_,_,_,_),
-    items(ID,ItemName,Qty,Sell,Buy,FarmLevel,FishLevel),
+    \+inventory(ItemID,_,_,_,_,_,_,_),
+    items(ID,ItemName,Qty,Sell,Buy,FarmLevel,FishLevel,RanchLevel),
     Qty2 is Qty + Quantity,
-    asserta(inventory(ID,ItemName,Qty2,Sell,Buy,FarmLevel,FishLevel)),
+    asserta(inventory(ID,ItemName,Qty2,Sell,Buy,FarmLevel,FishLevel,RanchLevel)),
     format('+~w ~w!', [Quantity, ItemName]),!.
 
 /* tambah quantity item lama */
@@ -38,20 +38,20 @@ addItems(ItemName,Quantity) :-
     inventoryCap(Max),
     inventoryQty(Length),
     Length + Quantity =< Max,
-    inventory(_,ItemName,Qty,_,_,_,_),
+    inventory(_,ItemName,Qty,_,_,_,_,_),
     Qty2 is Qty + Quantity,
-    retract(inventory(ID,ItemName,Qty,Sell,Buy,FarmLevel,FishLevel)),
-    asserta(inventory(ID,ItemName,Qty2,Sell,Buy,FarmLevel,FishLevel)),
+    retract(inventory(ID,ItemName,Qty,Sell,Buy,FarmLevel,FishLevel,RanchLevel)),
+    asserta(inventory(ID,ItemName,Qty2,Sell,Buy,FarmLevel,FishLevel,RanchLevel)),
     format('+~w ~w!', [Quantity, ItemName]),!.
 	
 addItems(ItemID,Quantity) :-
     inventoryCap(Max),
     inventoryQty(Length),
     Length + Quantity =< Max,
-    inventory(ItemID,_,Qty,_,_,_,_),
+    inventory(ItemID,_,Qty,_,_,_,_,_),
     Qty2 is Qty + Quantity,
-    retract(inventory(ItemID,Name,Qty,Sell,Buy,FarmLevel,FishLevel)),
-    asserta(inventory(ItemID,Name,Qty2,Sell,Buy,FarmLevel,FishLevel)),
+    retract(inventory(ItemID,Name,Qty,Sell,Buy,FarmLevel,FishLevel,RanchLevel)),
+    asserta(inventory(ItemID,Name,Qty2,Sell,Buy,FarmLevel,FishLevel,RanchLevel)),
     format('+~w ~w!', [Quantity, ItemID]),!.
 
 /* full */
@@ -67,42 +67,42 @@ addItems(ItemName,Quantity) :-
     inventoryQty(Length),
     Length + Quantity > Max,
     QtyAvailable is Max - Length,
-    inventory(_,ItemName,Qty,_,_,_,_),
+    inventory(_,ItemName,Qty,_,_,_,_,_),
     Qty2 is Qty + QtyAvailable,
-    retract(inventory(ID,ItemName,Qty,Sell,Buy,FarmLevel,FishLevel)),
-    asserta(inventory(ID,ItemName,Qty2,Sell,Buy,FarmLevel,FishLevel)),
+    retract(inventory(ID,ItemName,Qty,Sell,Buy,FarmLevel,FishLevel,RanchLevel)),
+    asserta(inventory(ID,ItemName,Qty2,Sell,Buy,FarmLevel,FishLevel,RanchLevel)),
 	format('Inventory full!, only +~w ~w!', [QtyAvailable, ItemName]),!.
 
 /* throwqty < qty */
 delItems(ItemName,Quantity) :-
-    inventory(_,ItemName,Qty,_,_,_,_),
+    inventory(_,ItemName,Qty,_,_,_,_,_),
     Qty2 is Qty - Quantity,
     Qty2 > 0,
-    retract(inventory(ID,ItemName,Qty,Sell,Buy,FarmLevel,FishLevel)),
-    asserta(inventory(ID,ItemName,Qty2,Sell,Buy,FarmLevel,FishLevel)),!.
+    retract(inventory(ID,ItemName,Qty,Sell,Buy,FarmLevel,FishLevel,RanchLevel)),
+    asserta(inventory(ID,ItemName,Qty2,Sell,Buy,FarmLevel,FishLevel,RanchLevel)),!.
 	
 delItems(ItemID,Quantity) :-
-    inventory(ItemID,_,Qty,_,_,_,_),
+    inventory(ItemID,_,Qty,_,_,_,_,_),
     Qty2 is Qty - Quantity,
     Qty2 > 0,
-    retract(inventory(ItemID,Name,Qty,Sell,Buy,FarmLevel,FishLevel)),
-    asserta(inventory(ItemID,Name,Qty2,Sell,Buy,FarmLevel,FishLevel)),!.
+    retract(inventory(ItemID,Name,Qty,Sell,Buy,FarmLevel,FishLevel,RanchLevel)),
+    asserta(inventory(ItemID,Name,Qty2,Sell,Buy,FarmLevel,FishLevel,RanchLevel)),!.
 
 /* throwqty = qty */
 delItems(ItemName,Quantity) :-
-    inventory(_,ItemName,Qty,_,_,_,_),
+    inventory(_,ItemName,Qty,_,_,_,_,_),
     Qty2 is Qty - Quantity,
     Qty2 =:= 0,
-    retract(inventory(_,ItemName,Qty,_,_,_,_)),!.
+    retract(inventory(_,ItemName,Qty,_,_,_,_,_)),!.
 delItems(ItemID,Quantity) :-
-    inventory(ItemID,_,Qty,_,_,_,_),
+    inventory(ItemID,_,Qty,_,_,_,_,_),
     Qty2 is Qty - Quantity,
     Qty2 =:= 0,
-    retract(inventory(ItemID,_,Qty,_,_,_,_)),!.
+    retract(inventory(ItemID,_,Qty,_,_,_,_,_)),!.
 	
 makeListItems(ListNama, ListQuantity) :-
-    findall(Nama, inventory(_,Nama,_,_,_,_,_), ListNama),
-    findall(Quantity, inventory(_,_,Quantity,_,_,_,_), ListQuantity).
+    findall(Nama, inventory(_,Nama,_,_,_,_,_,_), ListNama),
+    findall(Quantity, inventory(_,_,Quantity,_,_,_,_,_), ListQuantity).
 
 stt2([],[]).
 stt2([A|X],[B|Y]) :-
@@ -124,7 +124,7 @@ throwItem :-
 	displayInventory, nl,
 	write('What do you want to throw?'), nl,
 	write('> '), read(ItemName), nl,
-	inventory(_,ItemName,Qty,_,_,_,_),
+	inventory(_,ItemName,Qty,_,_,_,_,_),
 	format('You have ~w ~w. How many do you want to throw?~n', [Qty, ItemName]),
 	write('> '), read(ThrowQty), nl,
 	delItems(ItemName, ThrowQty),
