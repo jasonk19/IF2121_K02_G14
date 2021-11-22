@@ -1,4 +1,4 @@
-:- dynamic(items/7).
+:- dynamic(items/8).
 
 /* items(id,name,qty,sell,buy,lvlfish,lvlfarm,lvlranch) */
 /******** FISH ********/
