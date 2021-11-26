@@ -4,6 +4,7 @@ startGame :-
   ['./map.pl'],
   ['./move.pl'],
   ['./farming.pl'],
+  ['./quest.pl'],
   intro,
   introMsg,
   map_structure,
