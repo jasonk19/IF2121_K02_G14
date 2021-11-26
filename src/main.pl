@@ -3,6 +3,7 @@ startGame :-
   ['./player.pl'],
   ['./map.pl'],
   ['./move.pl'],
+  ['./farming.pl'],
   intro,
   introMsg,
   map_structure,

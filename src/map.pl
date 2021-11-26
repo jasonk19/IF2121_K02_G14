@@ -11,6 +11,7 @@ map_house('H').
 map_quest('Q').
 tile_air('o').
 digged_tile('=').
+map_planted('c').
 map_player('P').
 
 map_size(17).
@@ -106,4 +107,24 @@ create_point(_,_) :- true, !.
 
 create_map :- create_point(0,0).
 map :- create_map.
+
+/* CONDITIONS */
+:- dynamic(inHouse/0).
+:- dynamic(inMarket/0).
+
+house :-
+  map_player(P), map_object(X,Y,P),
+  map_house(H), map_object(XH,YH,H),
+  (X =:= XH -> (Y =:= YH -> assertz(inHouse), write('You have entered your House, input "exitHouse" to exit House'), ! ; write('You are not at your House!'), !) ; write('You are not at your House!'), !).
+
+exitHouse :-
+  (inHouse -> retract(inHouse), write('You have left your House') ; write('You are not at your House!')).
+
+market :-
+  map_player(P), map_object(X,Y,P),
+  map_marketplace(M), map_object(XM,YM,M),
+  (X =:= XM -> (Y =:= YM -> assertz(inMarket), write('You have entered the Market, input "exitMarket" to exit the Market'), ! ; write('You are not at the Market!'), !) ; write('You are not at the Market!'), !).
+
+exitMarket :-
+  (inMarket -> retract(inMarket), write('You have left the Market') ; write('You are not at the Market!')).
 
