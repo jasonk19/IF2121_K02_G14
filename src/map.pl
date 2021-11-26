@@ -22,45 +22,32 @@ loc_structure :-
   XM is div(S, 3), YM is div(S, 3),
   MarketX is XM + 10, MarketY is YM + 4,
   random(3, MarketX, X), random(1,MarketY,Y), asserta(map_object(X,Y,M)),
-  RanchX is MarketX + XM,
-  random(MarketX, RanchX, X2), random(1, MarketY, Y2), asserta(map_object(X2,Y2,R)),
+  RanchX is XM + 5,
+  random(1, RanchX, X2), random(MarketX, S, Y2), asserta(map_object(X2,Y2,R)),
   HouseY is MarketY + YM,
-  random(1, MarketX, X3), random(MarketY, HouseY, Y3), asserta(map_object(X3,Y3,H)),
+  random(1, 2, X3), random(MarketY, HouseY, Y3), asserta(map_object(X3,Y3,H)),
   QuestX is MarketX + XM, QuestY is MarketY + YM,
   random(MarketX, QuestX, X4), random(MarketY, QuestY, Y4), asserta(map_object(X4,Y4,Q)).
 
 
-/* Tile Locations */
+/* Tile Air Locations */
 tile_structure :- 
-  generate_tile_air, generate_digged_tile,
-  (digged_tile_chance -> (tile_air_chance -> true ; true) ; (tile_air_chance -> true ; true)).
+  generate_tile_air, generate_tile_air,
+  (tile_air_chance -> (tile_air_chance -> true ; true)  ;  true).
 
-tile_air_chance :- random(0, 40, TA), (TA >= 15), generate_tile_air.
-digged_tile_chance :- random(0,40,DT), (DT >= 15), generate_digged_tile.
+tile_air_chance :- random(0, 40, TA), (TA >= 30), generate_tile_air.
 
 generate_tile_air :- 
-  map_size(S), TileMin is div(S,5), TileMax is div(S,2),
+  map_size(S), TileMin is div(S,5), TileMax is div(S,3),
   random(TileMin, TileMax, Tiles),
-  random(Tiles,S,StartY), random(13, S, StartX),
+  random(1,S,StartX), random(10, 15, StartY),
   create_tile_air(StartX, StartY, Tiles), !.
 
 create_tile_air(X,Y,1) :- tile_air(Air), assertz(map_object(X,Y,Air)).
 
 create_tile_air(X,Y,N) :- 
   tile_air(Air), assertz(map_object(X,Y,Air)),
-  N2 is N - 1, NY is Y - 1, create_tile_air(X, NY, N2).
-
-generate_digged_tile :- 
-  map_size(S), TileMin is div(S,6), TileMax is div(S,3),
-  random(TileMin, TileMax, Tiles),
-  random(1,S,StartX), random(1, 10, StartY),
-  create_digged_tile(StartX, StartY, Tiles), !.
-
-create_digged_tile(X,Y,1) :- digged_tile(Digged), assertz(map_object(X,Y,Digged)).
-
-create_digged_tile(X,Y,N) :- 
-  digged_tile(Digged), assertz(map_object(X,Y,Digged)),
-  N2 is N - 1, NX is X - 1, create_digged_tile(NX, Y, N2).
+  N2 is N - 1, NX is X - 1, create_tile_air(NX, Y, N2).
 
 /* Fence Structure */
 
