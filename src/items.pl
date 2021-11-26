@@ -11,11 +11,11 @@ items(4,carp,0,125,0,0,0,0).
 items(5,bass,0,180,0,0,0,0).
 items(6,salmon,0,225,0,0,0,0).
 /* Large Fish */
-items(4,tuna,0,500,0,0,0,0).
-items(5,marlin,0,750,0,0,0,0).
-items(6,shark,0,1000,0,0,0,0).
+items(7,tuna,0,500,0,0,0,0).
+items(8,marlin,0,750,0,0,0,0).
+items(9,shark,0,1000,0,0,0,0).
 /* Rare Fish */
-items(7,treasure_chest,0,2500,0,0,0,0).
+items(10,treasure_chest,0,2500,0,0,0,0).
 
 /******** RANCH ********/
 /* Animal */
