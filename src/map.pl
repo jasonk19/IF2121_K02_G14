@@ -11,10 +11,15 @@ map_house('H').
 map_quest('Q').
 tile_air('o').
 digged_tile('=').
+map_player('P').
 
 map_size(17).
 
 map_structure :- tile_structure, loc_structure.
+
+/* Player Position */
+init_player_pos :-
+  map_player(P), asserta(map_object(1,1,P)).
 
 /* Location's Structure */
 loc_structure :- 
@@ -51,28 +56,28 @@ create_tile_air(X,Y,N) :-
 
 /* Fence Structure */
 
-/* TOP */
+/* TOP WALL */
 create_point(X,Y) :-
   map_size(S), map_fence(F),
   X < S + 1, X > 0, Y =:= 0,
   write(F),
   DX is X + 1, create_point(DX, Y), !.
 
-/* RIGHT */
+/* RIGHT WALL */
 create_point(X,Y) :-
   map_size(S), map_fence(F),
   X =:= S + 1, Y =< S + 1,
   write(F), nl,
   DY is Y + 1, create_point(0, DY), !.
 
-/* BOTTOM */
+/* BOTTOM WALL */
 create_point(X,Y) :-
   map_size(S), map_fence(F),
   X < Y + 1, X > 0, Y =:= S + 1,
   write(F),
   DX is X + 1, create_point(DX, Y), !.
 
-/* LEFT */
+/* LEFT WALL */
 create_point(X,Y) :- 
   map_size(S), map_fence(F),
   X =:= 0, Y =< S + 1,
@@ -100,4 +105,5 @@ create_point(_,_) :- true, !.
 /* Main Map */
 
 create_map :- create_point(0,0).
-map :- map_structure, create_map.
+map :- create_map.
+

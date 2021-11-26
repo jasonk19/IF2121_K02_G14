@@ -10,11 +10,10 @@ choose_job :-
   nl, write('That job does not exist! Please pick the listed jobs.'), nl, choose_job), !.
 
 character(ID) :-
-  ID =:= 0, 
-  write('You choose Fisherman, let\'s start fishing');
+  ID =:= 0 -> write('You choose Fisherman, let\'s start fishing').
   /* Add Fisherman status */
 character(ID) :-    
-  ID =:= 1 -> write('You choose Farmer, let\'s start farming');
+  ID =:= 1 -> write('You choose Farmer, let\'s start farming').
   /* Add Farmer status */
 character(ID) :-
   ID =:= 2 -> write('You choose Rancher, let\'s start ranching').
