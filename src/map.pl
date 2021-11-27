@@ -16,44 +16,32 @@ map_player('P').
 
 map_size(17).
 
-map_structure :- tile_structure, loc_structure.
+map_structure :- loc_structure, tile_air_structure.
 
 /* Player Position */
 init_player_pos :-
   map_player(P), asserta(map_object(1,1,P)).
 
 /* Location's Structure */
-loc_structure :- 
+
+loc_structure :-
   map_size(S), map_marketplace(M), map_ranch(R), map_house(H), map_quest(Q),
-  XM is div(S, 3), YM is div(S, 3),
-  MarketX is XM + 10, MarketY is YM + 4,
-  random(3, MarketX, X), random(1,MarketY,Y), asserta(map_object(X,Y,M)),
-  RanchX is XM + 5,
-  random(1, RanchX, X2), random(MarketX, S, Y2), asserta(map_object(X2,Y2,R)),
-  HouseY is MarketY + YM,
-  random(1, 2, X3), random(MarketY, HouseY, Y3), asserta(map_object(X3,Y3,H)),
-  QuestX is MarketX + XM, QuestY is MarketY + YM,
-  random(MarketX, QuestX, X4), random(MarketY, QuestY, Y4), asserta(map_object(X4,Y4,Q)).
+  random(5,S,X), random(2,10,Y), asserta(map_object(X,Y,M)),
+  asserta(map_object(12,10,R)),
+  asserta(map_object(15,16,H)),
+  asserta(map_object(10,3,Q)).
 
+/* Tile Air */
 
-/* Tile Air Locations */
-tile_structure :- 
-  generate_tile_air, generate_tile_air,
-  (tile_air_chance -> (tile_air_chance -> true ; true)  ;  true).
-
-tile_air_chance :- random(0, 40, TA), (TA >= 30), generate_tile_air.
-
-generate_tile_air :- 
-  map_size(S), TileMin is div(S,5), TileMax is div(S,3),
-  random(TileMin, TileMax, Tiles),
-  random(1,S,StartX), random(10, 15, StartY),
-  create_tile_air(StartX, StartY, Tiles), !.
-
-create_tile_air(X,Y,1) :- tile_air(Air), assertz(map_object(X,Y,Air)).
-
-create_tile_air(X,Y,N) :- 
-  tile_air(Air), assertz(map_object(X,Y,Air)),
-  N2 is N - 1, NX is X - 1, create_tile_air(NX, Y, N2).
+tile_air_structure :-
+  tile_air(A),
+  asserta(map_object(3,11,A)),
+  asserta(map_object(4,11,A)),
+  asserta(map_object(5,11,A)),
+  asserta(map_object(2,12,A)),
+  asserta(map_object(3,12,A)),
+  asserta(map_object(4,12,A)),
+  asserta(map_object(5,12,A)).
 
 /* Fence Structure */
 
@@ -111,6 +99,7 @@ map :- create_map.
 /* CONDITIONS */
 :- dynamic(inHouse/0).
 :- dynamic(inMarket/0).
+:- dynamic(inRanch/0).
 
 house :-
   map_player(P), map_object(X,Y,P),
@@ -128,3 +117,12 @@ market :-
 exitMarket :-
   (inMarket -> retract(inMarket), write('You have left the Market') ; write('You are not at the Market!')).
 
+ranch :-
+  map_player(P), map_object(X,Y,P),
+  map_ranch(R), map_object(XR,YR,R),
+  (X =:= XR -> (Y =:= YR -> assertz(inRanch), write('You have entered the Ranch, input "exitRanch" to exit the Ranch'), ! ; write('You are not at the Ranch!'), !) ; write('You are not at the Ranch!'), !).
+
+exitRanch :-
+  (inRanch -> retract(inRanch), write('You have left the Ranch') ; write('You are not at the Ranch!')).
+
+isNearAir :-
