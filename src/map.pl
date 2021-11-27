@@ -125,4 +125,3 @@ ranch :-
 exitRanch :-
   (inRanch -> retract(inRanch), write('You have left the Ranch') ; write('You are not at the Ranch!')).
 
-isNearAir :-
