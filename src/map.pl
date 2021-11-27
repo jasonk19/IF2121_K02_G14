@@ -114,14 +114,10 @@ market :-
   map_marketplace(M), map_object(XM,YM,M),
   (X =:= XM -> (Y =:= YM -> assertz(inMarket), write('You have entered the Market, input "exitMarket" to exit the Market'), ! ; write('You are not at the Market!'), !) ; write('You are not at the Market!'), !).
 
+
 exitMarket :-
   (inMarket -> retract(inMarket), write('You have left the Market') ; write('You are not at the Market!')).
 
-ranch :-
-  map_player(P), map_object(X,Y,P),
-  map_ranch(R), map_object(XR,YR,R),
-  (X =:= XR -> (Y =:= YR -> assertz(inRanch), write('You have entered the Ranch, input "exitRanch" to exit the Ranch'), ! ; write('You are not at the Ranch!'), !) ; write('You are not at the Ranch!'), !).
 
-exitRanch :-
-  (inRanch -> retract(inRanch), write('You have left the Ranch') ; write('You are not at the Ranch!')).
+
 

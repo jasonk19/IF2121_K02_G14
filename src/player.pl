@@ -36,7 +36,7 @@ character(ID) :-
   entryStat('farmer', FarmerLvl, FarmerExp, _,_),
   entryStat('rancher', RancherLvl, RancherExp, _,_),
   entryExp,
-  assertz(player('Fisherman', 1, FarmerLvl, FarmerExp, FishermanLvl, FishermanExp, RancherLvl, RancherExp, Exp, Gold)).
+  assertz(player('fisherman', 1, FarmerLvl, FarmerExp, FishermanLvl, FishermanExp, RancherLvl, RancherExp, Exp, Gold)).
   
 
 character(ID) :-    
@@ -45,7 +45,7 @@ character(ID) :-
   entryStat('farmer', FarmerLvl, FarmerExp, _,_),
   entryStat('rancher', RancherLvl, RancherExp, _,_),
   entryExp,
-  assertz(player('Farmer', 1, FarmerLvl, FarmerExp, FishermanLvl, FishermanExp, RancherLvl, RancherExp, Exp, Gold)).
+  assertz(player('farmer', 1, FarmerLvl, FarmerExp, FishermanLvl, FishermanExp, RancherLvl, RancherExp, Exp, Gold)).
   
 
 character(ID) :-
@@ -54,7 +54,7 @@ character(ID) :-
   entryStat('farmer', FarmerLvl, FarmerExp, _,_),
   entryStat('rancher', RancherLvl, RancherExp, _,_),
   entryExp,
-  assertz(player('Rancher', 1, FarmerLvl, FarmerExp, FishermanLvl, FishermanExp, RancherLvl, RancherExp, Exp, Gold)).
+  assertz(player('rancher', 1, FarmerLvl, FarmerExp, FishermanLvl, FishermanExp, RancherLvl, RancherExp, Exp, Gold)).
   
 /* Add print Status */ 
 status :- player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold),
@@ -73,3 +73,6 @@ status :- player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel,
 job(0, 'Fisherman').
 job(1, 'Farmer').
 job(2, 'Rancher').
+
+
+/* Implementasi Exp(X) */
