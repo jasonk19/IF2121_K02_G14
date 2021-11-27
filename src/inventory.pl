@@ -28,9 +28,9 @@ addItems(ItemID,Quantity) :-
     inventoryQty(Length),
     Length + Quantity =< Max,
     \+inventory(ItemID,_,_,_,_,_,_,_),
-    items(ID,ItemName,Qty,Sell,Buy,,FishLevel,FarmLevel,RanchLevel),
+    items(ItemID,ItemName,Qty,Sell,Buy,FishLevel,FarmLevel,RanchLevel),
     Qty2 is Qty + Quantity,
-    asserta(inventory(ID,ItemName,Qty2,Sell,Buy,FishLevel,FarmLevel,RanchLevel)),
+    asserta(inventory(ItemID,ItemName,Qty2,Sell,Buy,FishLevel,FarmLevel,RanchLevel)),
     format('+~w ~w!', [Quantity, ItemName]),!.
 
 /* tambah quantity item lama */
@@ -52,7 +52,7 @@ addItems(ItemID,Quantity) :-
     Qty2 is Qty + Quantity,
     retract(inventory(ItemID,Name,Qty,Sell,Buy,FishLevel,FarmLevel,RanchLevel)),
     asserta(inventory(ItemID,Name,Qty2,Sell,Buy,FishLevel,FarmLevel,RanchLevel)),
-    format('+~w ~w!', [Quantity, ItemID]),!.
+    format('+~w ~w!', [Quantity, Name]),!.
 
 /* full */
 addItems(_,_) :-
@@ -127,6 +127,10 @@ throwItem :-
 	inventory(_,ItemName,Qty,_,_,_,_,_),
 	format('You have ~w ~w. How many do you want to throw?~n', [Qty, ItemName]),
 	write('> '), read(ThrowQty), nl,
-	delItems(ItemName, ThrowQty),
-	format('You threw away ~w ~w.', [ThrowQty, ItemName]).
+	( ThrowQty > Qty
+	-> format('You dont have enough ~w. Cancelling…', [ItemName])
+	; delItems(ItemName, ThrowQty),
+	format('You threw away ~w ~w.', [ThrowQty, ItemName])).
+	
+	
 	
