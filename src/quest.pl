@@ -103,7 +103,8 @@ fulfillQuest :-
             delItems(Name_Fish,Qty_F),
             delItems(Name_Ranch,Qty_R),
             /* get exp and money */
-            retract(ongoing)
+            retract(ongoing),
+	        retract(quest(Id_Harvest, Qty_Harvest, Id_Fish, Qty_Fish, Id_Ranch, Qty_Ranch))
         ;
             !) 
     ;
