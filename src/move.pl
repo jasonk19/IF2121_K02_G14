@@ -8,6 +8,10 @@ w :-
   map_player(P), map_object(X,Y,P),
   Y1 is Y - 1, (Y1 =:= 0 -> (move, nl, write('You hit a fence!'), !)).
 
+w :-
+  map_player(P), map_object(X,Y,P),
+  tile_air(A), map_object(XA,YA,A),
+  (YA =:= Y - 1 -> (XA =:= X -> (move, nl, write('You cannot cross a lake!'), !))).
 
 w :-
   map_player(P), map_object(X,Y,P),
@@ -24,6 +28,10 @@ s :-
   map_player(P), map_object(X,Y,P), map_size(S),
   Y1 is Y + 1, (Y1 =:= S + 1 -> (move, nl, write('You hit a fence!'), !)).
 
+s :-
+  map_player(P), map_object(X,Y,P),
+  tile_air(A), map_object(XA,YA,A),
+  (YA =:= Y + 1 -> (XA =:= X -> (move, nl, write('You cannot cross a lake!'), !))).
 
 s :-
   map_player(P), map_object(X,Y,P),
@@ -40,6 +48,10 @@ a :-
   map_player(P), map_object(X,Y,P),
   X1 is X - 1, (X1 =:= 0 -> (move, nl, write('You hit a fence!'), !)).
 
+a :-
+  map_player(P), map_object(X,Y,P),
+  tile_air(A), map_object(XA,YA,A),
+  (XA =:= X - 1 -> (YA =:= Y -> (move, nl, write('You cannot cross a lake!'), !))).
 
 a :-
   map_player(P), map_object(X,Y,P),
@@ -56,6 +68,10 @@ d :-
   map_player(P), map_object(X,Y,P), map_size(S),
   X1 is X + 1, (X1 =:= S + 1 -> (move, nl, write('You hit a fence!'), !)).
 
+d :-
+  map_player(P), map_object(X,Y,P),
+  tile_air(A), map_object(XA,YA,A),
+  (XA =:= X + 1 -> (YA =:= Y -> (move, nl, write('You cannot cross a lake!'), !))).
 
 d :-
   map_player(P), map_object(X,Y,P),
