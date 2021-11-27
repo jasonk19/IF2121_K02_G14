@@ -11,14 +11,14 @@ w :-
 w :-
   map_player(P), map_object(X,Y,P),
   tile_air(A), map_object(XA,YA,A),
-  (YA =:= Y - 1 -> (XA =:= X -> (move, nl, write('You cannot cross a lake!'), !))).
+  (YA =:= Y - 1 -> (XA =:= X -> (move, nl, write('You can\'t get into water!'), !))).
 
 w :-
   map_player(P), map_object(X,Y,P),
   Y1 is Y - 1,
   retract(map_object(X,Y,P)),
   asserta(map_object(X,Y1,P)), !,
-  move.
+  move, nl, write('You moved north.').
 
 s :- inHouse, !, write('You are at your House, please exit your House to move').
 s :- inMarket, !, write('You are at the Market, please exit the Market to move').
@@ -31,14 +31,14 @@ s :-
 s :-
   map_player(P), map_object(X,Y,P),
   tile_air(A), map_object(XA,YA,A),
-  (YA =:= Y + 1 -> (XA =:= X -> (move, nl, write('You cannot cross a lake!'), !))).
+  (YA =:= Y + 1 -> (XA =:= X -> (move, nl, write('You can\'t get into water!'), !))).
 
 s :-
   map_player(P), map_object(X,Y,P),
   Y1 is Y + 1,
   retract(map_object(X,Y,P)),
   asserta(map_object(X,Y1,P)), !,
-  move.
+  move, nl, write('You moved south.').
 
 a :- inHouse, !, write('You are at your House, please exit your House to move').
 a :- inMarket, !, write('You are at the Market, please exit the Market to move').
@@ -51,14 +51,14 @@ a :-
 a :-
   map_player(P), map_object(X,Y,P),
   tile_air(A), map_object(XA,YA,A),
-  (XA =:= X - 1 -> (YA =:= Y -> (move, nl, write('You cannot cross a lake!'), !))).
+  (XA =:= X - 1 -> (YA =:= Y -> (move, nl, write('You can\'t get into water!'), !))).
 
 a :-
   map_player(P), map_object(X,Y,P),
   X1 is X - 1,
   retract(map_object(X,Y,P)),
   asserta(map_object(X1,Y,P)), !,
-  move.
+  move, nl, write('You moved west.').
 
 d :- inHouse, !, write('You are at your House, please exit your House to move').
 d :- inMarket, !, write('You are at the Market, please exit the Market to move').
@@ -71,12 +71,12 @@ d :-
 d :-
   map_player(P), map_object(X,Y,P),
   tile_air(A), map_object(XA,YA,A),
-  (XA =:= X + 1 -> (YA =:= Y -> (move, nl, write('You cannot cross a lake!'), !))).
+  (XA =:= X + 1 -> (YA =:= Y -> (move, nl, write('You can\'t get into water!'), !))).
 
 d :-
   map_player(P), map_object(X,Y,P),
   X1 is X + 1,
   retract(map_object(X,Y,P)),
   asserta(map_object(X1,Y,P)), !,
-  move.
+  move, nl, write('You moved east.').
 
