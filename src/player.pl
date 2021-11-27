@@ -50,7 +50,7 @@ status :- player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel,
             write('Exp fishing: '), write(FishExp), nl,
             write('Level ranching: '), write(RanchLevel), nl,
             write('Exp ranching: '), write(RanchExp), nl,
-            write('Exp: '), write(Exp), , write('/'), exp(_,Max,_), write(Max), nl,
+            write('Exp: '), write(Exp), write('/'), exp(_,Max,_), write(Max), nl,
             write('Gold: '), write(Gold), nl.
 
 /* Format Job */
