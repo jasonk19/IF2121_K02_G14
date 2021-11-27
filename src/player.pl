@@ -13,6 +13,8 @@ entryStat(farmer, 1, 56, 0, 1000).
 entryStat(fisherman, 1, 76, 0, 1000).
 entryStat(rancher, 1, 56, 0, 1000).
 
+
+
 entryExp :- 
   retractall(exp(_,_,_)),
   assertz(exp(0,300,1)).
@@ -29,30 +31,44 @@ choose_job :-
   nl, write('That job does not exist! Please pick the listed jobs.'), nl, choose_job), !.
 
 character(ID) :-
-  ID =:= 0 -> write('You choose Fisherman, let\'s start fishing').
-  /* Add Fisherman status */
-character(ID) :-    
-  ID =:= 1 -> write('You choose Farmer, let\'s start farming').
-  /* Add Farmer status */
-character(ID) :-
-  ID =:= 2 -> write('You choose Rancher, let\'s start ranching').
-  /* Add Rancher status */
+  ID =:= 0 -> write('You choose Fisherman, let\'s start fishing'), 
+  entryStat('fisherman', FishermanLvl, FishermanExp, Exp, Gold),
+  entryStat('farmer', FarmerLvl, FarmerExp, _,_),
+  entryStat('rancher', RancherLvl, RancherExp, _,_),
+  entryExp,
+  assertz(player('Fisherman', 1, FarmerLvl, FarmerExp, FishermanLvl, FishermanExp, RancherLvl, RancherExp, Exp, Gold)).
+  
 
+character(ID) :-    
+  ID =:= 1 -> write('You choose Farmer, let\'s start farming'),
+  entryStat('fisherman', FishermanLvl, FishermanExp, Exp, Gold),
+  entryStat('farmer', FarmerLvl, FarmerExp, _,_),
+  entryStat('rancher', RancherLvl, RancherExp, _,_),
+  entryExp,
+  assertz(player('Farmer', 1, FarmerLvl, FarmerExp, FishermanLvl, FishermanExp, RancherLvl, RancherExp, Exp, Gold)).
+  
+
+character(ID) :-
+  ID =:= 2 -> write('You choose Rancher, let\'s start ranching'),
+  entryStat('fisherman', FishermanLvl, FishermanExp, Exp, Gold),
+  entryStat('farmer', FarmerLvl, FarmerExp, _,_),
+  entryStat('rancher', RancherLvl, RancherExp, _,_),
+  entryExp,
+  assertz(player('Rancher', 1, FarmerLvl, FarmerExp, FishermanLvl, FishermanExp, RancherLvl, RancherExp, Exp, Gold)).
+  
 /* Add print Status */ 
 status :- player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold),
-            equipment(Farming, Fishing),
-            write('Your status: '), nl, 
-            write('Job: '), write(Job), nl,
-            write('Level: '), write(Level), nl,
-            write('Level farming: '), write(FarmLevel), nl,
-            write('Exp farming: '), write(FarmExp), nl,
-            write('Level fishing: '), write(FishLevel), nl,
-            write('Exp fishing: '), write(FishExp), nl,
-            write('Level ranching: '), write(RanchLevel), nl,
-            write('Exp ranching: '), write(RanchExp), nl,
-            write('Exp: '), write(Exp), write('/'), exp(_,Max,_), write(Max), nl,
-            write('Gold: '), write(Gold), nl.
-
+          write('Your status: '), nl, 
+          write('Job: '), write(Job), nl,
+          write('Level: '), write(Level), nl,
+          write('Level farming: '), write(FarmLevel), nl,
+          write('Exp farming: '), write(FarmExp), nl,
+          write('Level fishing: '), write(FishLevel), nl,
+          write('Exp fishing: '), write(FishExp), nl,
+          write('Level ranching: '), write(RanchLevel), nl,
+          write('Exp ranching: '), write(RanchExp), nl,
+          write('Exp: '), write(Exp), write('/'), exp(_,Max,_), write(Max), nl,
+          write('Gold: '), write(Gold), nl.
 /* Format Job */
 job(0, 'Fisherman').
 job(1, 'Farmer').
