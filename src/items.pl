@@ -24,14 +24,14 @@ items(22,sheep,0,350,700,0,0,0).
 items(23,chicken,0,250,500,0,0,0).
 /* Animal Product */
 items(24,milk,0,375,0,0,0,0).
-items(25,large_milk,0,750,0,0,0,0).
-items(26,golden_milk,0,2750,0,0,0,0).
+items(25,milk(large),0,750,0,0,0,0).
+items(26,milk(golden),0,2750,0,0,0,0).
 items(27,wool,0,250,0,0,0,0).
-items(28,large_wool,0,500,0,0,0,0).
-items(29,golden_wool,0,2500,0,0,0,0).
+items(28,wool(large),0,500,0,0,0,0).
+items(29,wool(golden),0,2500,0,0,0,0).
 items(30,egg,0,100,0,0,0,0).
-items(31,large_egg,0,200,0,0,0,0).
-items(32,golden_egg,0,2000,0,0,0,0).
+items(31,egg(large),0,200,0,0,0,0).
+items(32,egg(golden),0,2000,0,0,0,0).
 
 /******** FARM ********/
 /* Seeds */
