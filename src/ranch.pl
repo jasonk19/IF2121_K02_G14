@@ -9,8 +9,8 @@ map_object(2,3,'R').
 
 
 ranch :-
-  map_player(P), map_object(X,Y,P),
-  map_ranch(R), map_object(XR,YR,R),
+  map_player(P), map_object(X,Y,P,_),
+  map_ranch(R), map_object(XR,YR,R,_),
   (X =:= XR -> (Y =:= YR -> assertz(inRanch), write('You have entered the Ranch, input "exitRanch" to exit the Ranch'), nl, welcomeMsg, ! ; write('You are not at the Ranch!'), !) ; write('You are not at the Ranch!'), !).
 
 

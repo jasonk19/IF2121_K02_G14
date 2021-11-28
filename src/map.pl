@@ -1,7 +1,7 @@
 /* Peta */
 
-/* Generate map_object(X, Y, Loc) -> Loc di posisi (X,Y) */
-:- dynamic(map_object/3).
+/* Generate map_object(X, Y, Loc, harvestId) -> Loc di posisi (X,Y) */
+:- dynamic(map_object/4).
 
 map_fence('#').
 map_space('-').
@@ -20,28 +20,28 @@ map_structure :- loc_structure, tile_air_structure.
 
 /* Player Position */
 init_player_pos :-
-  map_player(P), asserta(map_object(1,1,P)).
+  map_player(P), asserta(map_object(1,1,P,_)).
 
 /* Location's Structure */
 
 loc_structure :-
   map_size(S), map_marketplace(M), map_ranch(R), map_house(H), map_quest(Q),
-  random(5,S,X), random(2,10,Y), asserta(map_object(X,Y,M)),
-  asserta(map_object(12,10,R)),
-  asserta(map_object(15,16,H)),
-  asserta(map_object(10,3,Q)).
+  random(5,S,X), random(2,10,Y), asserta(map_object(X,Y,M,_)),
+  asserta(map_object(12,10,R,_)),
+  asserta(map_object(15,16,H,_)),
+  asserta(map_object(10,3,Q,_)).
 
 /* Tile Air */
 
 tile_air_structure :-
   tile_air(A),
-  asserta(map_object(3,11,A)),
-  asserta(map_object(4,11,A)),
-  asserta(map_object(5,11,A)),
-  asserta(map_object(2,12,A)),
-  asserta(map_object(3,12,A)),
-  asserta(map_object(4,12,A)),
-  asserta(map_object(5,12,A)).
+  asserta(map_object(3,11,A,_)),
+  asserta(map_object(4,11,A,_)),
+  asserta(map_object(5,11,A,_)),
+  asserta(map_object(2,12,A,_)),
+  asserta(map_object(3,12,A,_)),
+  asserta(map_object(4,12,A,_)),
+  asserta(map_object(5,12,A,_)).
 
 /* Fence Structure */
 
@@ -77,7 +77,7 @@ create_point(X,Y) :-
 create_point(X,Y) :-
   map_size(S),
   X < S + 1, X > 0, Y < S + 1, Y > 0,
-  map_object(X, Y, Loc), !,
+  map_object(X, Y, Loc,_), !,
   write(Loc),
   DX is X + 1, create_point(DX, Y), !.
 
@@ -85,7 +85,7 @@ create_point(X,Y) :-
 create_point(X,Y) :-
   map_size(S), map_space(P),
   X < S + 1, X > 0, Y < S + 1, Y > 0,
-  (\+ map_object(X,Y,_)),
+  (\+ map_object(X,Y,_,_)),
   write(P),
   DX is X + 1, create_point(DX, Y), !.
 
@@ -104,8 +104,8 @@ map :- create_map.
 
 
 market :-
-  map_player(P), map_object(X,Y,P),
-  map_marketplace(M), map_object(XM,YM,M),
+  map_player(P), map_object(X,Y,P,_),
+  map_marketplace(M), map_object(XM,YM,M,_),
   (X =:= XM -> (Y =:= YM -> assertz(inMarket), write('You have entered the Market, input "exitMarket" to exit the Market'), ! ; write('You are not at the Market!'), !) ; write('You are not at the Market!'), !).
 
 

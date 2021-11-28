@@ -123,7 +123,7 @@ fulfillQuest :-
 
 /* quest command */
 quest :-
-    map_quest(Q),map_object(XQ,YQ,Q),map_player(P),map_object(XP,YP,P),
+    map_quest(Q),map_object(XQ,YQ,Q,_),map_player(P),map_object(XP,YP,P,_),
     ((XQ =:= XP, YQ =:= YP) ->
         (ongoing ->
             fulfillQuest,!

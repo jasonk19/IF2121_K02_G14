@@ -2,8 +2,8 @@
 :- dynamic(diary/2).
 
 /* Buat testing */
-map_object(2,3,'P').
-map_object(2,3,'H').
+map_object(2,3,'P',_).
+map_object(2,3,'H',_).
 time(5, 2, spring).
 
 
@@ -24,8 +24,8 @@ displayDiary :-
 
 
 house :-
-  map_player(P), map_object(X,Y,P),
-  map_house(H), map_object(XH,YH,H),
+  map_player(P), map_object(X,Y,P,_),
+  map_house(H), map_object(XH,YH,H,_),
   (X =:= XH -> (Y =:= YH -> assertz(inHouse), write('You have entered your House, input "exitHouse" to exit House'), nl,welcomeHouse, ! ; write('You are not at your House!'), !) ; write('You are not at your House!'), !).
 
 exitHouse :-
