@@ -3,7 +3,7 @@
 :- dynamic(fishexp/3).
 :- dynamic(ranchexp/3).
 :- dynamic(player/10).
-:- dynamic(equipment/2).
+:- dynamic(day/1).
 /* Job, specific job exp */
 /* Kalo semisal terlalu kecil atau terlalu besar bisa diubah nantinya */
 growthRate(farmer, 200).
@@ -23,8 +23,8 @@ entryExp :-
   assertz(exp(0,300,1)),
   assertz(farmexp(0, 100, 1)),
   assertz(fishexp(0, 100, 1)),
-  assertz(ranchexp(0, 100, 1)).
-
+  assertz(ranchexp(0, 100, 1)),
+  assertz(day(0, spring)).
 choose_job :- 
   write('Welcome to Harvest. Choose your job'), nl,
   write('1. Fisherman'), nl,
