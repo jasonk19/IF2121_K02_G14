@@ -71,6 +71,7 @@ getQuest :-
         !),
     asserta(quest(Harvest_id,Harvest,Fish_id,Fish,Ranch_id,Ranch)).
 
+/* tampilkan quest */
 displayQuest :-
     quest(Id_Harvest, Qty_Harvest, Id_Fish, Qty_Fish, Id_Ranch, Qty_Ranch),
     items(Id_Harvest, Name_Harvest,_,_,_,_,_,_),
@@ -90,12 +91,24 @@ displayQuest :-
     ;
         !).
 
+/* ambil jumlah item dalam inventory */
+itemAmount(Id_Item, Amount) :-
+    inventory(Id_Item,_,Qty,_,_,_,_,_),
+    Amount is Qty,!.
+
+itemAmount(Id_Item, Amount) :-
+    \+inventory(Id_Item,_,_,_,_,_,_,_),
+    Amount is 0,!.
+
 /* Finishing Quest */
 fulfillQuest :-
     quest(Id_Harvest, Qty_Harvest, Id_Fish, Qty_Fish, Id_Ranch, Qty_Ranch),
-    inventory(Id_Harvest,Name_Harvest,Qty_H,Sell_H,_,_,_,_),
-    inventory(Id_Fish,Name_Fish,Qty_F,Sell_F,_,_,_,_),
-    inventory(Id_Ranch,Name_Ranch,Qty_R,Sell_R,_,_,_,_),
+    itemAmount(Id_Harvest, Qty_H),
+    itemAmount(Id_Fish, Qty_F),
+    itemAmount(Id_Ranch, Qty_R),
+    items(Id_Harvest,_,_,Sell_H,_,_,_,_),
+    items(Id_Fish,_,_,Sell_F,_,_,_,_),
+    items(Id_Ranch,_,_,Sell_R,_,_,_,_),
     ((Qty_H >= Qty_Harvest, Qty_F >= Qty_Fish, Qty_R >= Qty_Ranch) ->
         displayQuest, write('Finish current quest?(y/n)'), read(X),
         (X == 'y' ->
@@ -104,21 +117,22 @@ fulfillQuest :-
             Reward_Ranch is Qty_R * Sell_R * 2,
             Reward_Gold is Reward_Fish + Reward_Harvest + Reward_Ranch,
             Reward_Exp is 500,
-	    write('Quest finished, you gain:'),nl,write(Reward_Gold),write(' gold and '),write(Reward_Exp),write(' Exp'),
+	        write('Quest finished, you gain:'),nl,write(Reward_Gold),write(' gold and '),write(Reward_Exp),write(' Exp'),
             player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold),
             Total_Gold is Reward_Gold + Gold,
             Total_Exp is Reward_Exp + Exp,
             retract(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)),
-            asserta(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Total_Exp, Total_Gold))
-            delItems(Name_Harvest,Qty_H),
-            delItems(Name_Fish,Qty_F),
-            delItems(Name_Ranch,Qty_R),
+            asserta(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Total_Exp, Total_Gold)),
+            delItems(Id_Harvest,Qty_Harvest),
+            delItems(Id_Fish,Qty_Fish),
+            delItems(Id_Ranch,Qty_Ranch),
             retract(ongoing),
-	        retract(quest(Id_Harvest, Qty_Harvest, Id_Fish, Qty_Fish, Id_Ranch, Qty_Ranch))
+	    retract(quest(Id_Harvest, Qty_Harvest, Id_Fish, Qty_Fish, Id_Ranch, Qty_Ranch)),
+            nl,goalCheck
         ;
             !) 
     ;
-        write('You have an on-going quest!')         
+        write('You have an on-going quest!'),nl,displayQuest       
     ).
 
 /* quest command */
