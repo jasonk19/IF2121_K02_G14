@@ -19,3 +19,23 @@ introMsg :-
   write('% 7. a       : gerak ke barat 1 langkah                   %'), nl,
   write('% 8. help    : menampilkan segala bantuan                 %'), nl,
   write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'), nl.
+
+help :-
+  write('========================COMMAND LIST========================'), nl,
+  write('start.                   : memulai permainan'), nl,
+  write('status.                  : menampilkan status'), nl,
+  write('map.                     : menampilkan peta'), nl,
+  write('w.                       : 1 langkah ke utara'), nl,
+  write('a.                       : 1 langkah ke barat'), nl,
+  write('s.                       : 1 langkah ke selatan'), nl,
+  write('d.                       : 1 langkah ke timur'), nl,
+  write('inventory.               : menampilkan inventory'), nl,
+  write('quest.                   : menampilkan quest'), nl, nl,
+  write('==========================FISHING==========================='), nl,
+  write('==========================FARMING==========================='), nl,
+  write('dig.                     : menggali tanah'), nl,
+  write('plant.                   : menanam seed'), nl,
+  write('harvest.                 : mengambil hasil panen'), nl, nl,
+  write('==========================RANCHING=========================='), nl.
+
+
