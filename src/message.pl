@@ -30,7 +30,7 @@ help :-
   write('s.                       : 1 langkah ke selatan'), nl,
   write('d.                       : 1 langkah ke timur'), nl,
   write('inventory.               : menampilkan inventory'), nl,
-  write('quest.                   : menampilkan quest'), nl, nl,
+  write('quest.                   : mengambil/menyelesaikan quest'), nl, nl,
   write('==========================FISHING==========================='), nl,
   write('==========================FARMING==========================='), nl,
   write('dig.                     : menggali tanah'), nl,
