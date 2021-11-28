@@ -1,4 +1,7 @@
 :- dynamic(exp/3).
+:- dynamic(farmexp/3).
+:- dynamic(fishexp/3).
+:- dynamic(ranchexp/3).
 :- dynamic(player/10).
 :- dynamic(equipment/2).
 /* Job, specific job exp */
@@ -9,16 +12,18 @@ growthRate(rancher, 200).
 
 /* Entrystat saat masih level 1*/
 /* Format: Job, specific job level, specific job exp, exp, gold */
-entryStat(farmer, 1, 56, 0, 1000).
-entryStat(fisherman, 1, 76, 0, 1000).
-entryStat(rancher, 1, 56, 0, 1000).
+entryStat(farmer, 1, 0, 0, 1000).
+entryStat(fisherman, 1, 0, 0, 1000).
+entryStat(rancher, 1, 0, 0, 1000).
 
 /* exp(currentExp, TotalExp, Lvl) */
 
 entryExp :- 
   retractall(exp(_,_,_)),
-  assertz(exp(0,300,1)).
-
+  assertz(exp(0,300,1)),
+  assertz(farmexp(0, 100, 1)),
+  assertz(fishexp(0, 100, 1)),
+  assertz(ranchexp(0, 100, 1)).
 
 choose_job :- 
   write('Welcome to Harvest. Choose your job'), nl,
@@ -89,12 +94,13 @@ addExp(X) :-
   (X =:= 0 -> 
     write('You level up again!'), nl;
     format('You gain ~d exp ~n', [X])),
-  (NewExp >= Total ->
+   (NewExp >= Total ->
     format('Level up! ~n', []),
     NewExp2 is NewExp-Total, NewLvl is Level + 1, NewTotal is 300 + (150 * NewLvl),
     retract(exp(PrevExp, Total, Level)), assertz(exp(NewExp2, NewTotal, NewLvl)),
     player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold),
-    retract(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)), assertz(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, NewExp2, Gold)),
+    retract(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)), 
+    assertz(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, NewExp2, Gold)),
     levelUp(Job),
     (NewExp2 >= NewTotal ->
       addExp(0)
@@ -108,4 +114,108 @@ addExp(X) :-
     player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold),
     retract(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)),
     assertz(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, NewExp, Gold))
+  ).
+
+/* Buat Farmer */
+
+levelUpFarm:-
+  player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold),
+  retract(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)),
+  NewFarmLevel is FarmLevel + 1,
+  assertz(player(Job, Level, NewFarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)).
+
+addFarmExp(X) :-
+  farmexp(PrevExp, Total, FarmLevel), NewExp is PrevExp + X, 
+  (X =:= 0 -> 
+    write('You level up again!'), nl;
+    format('You gain ~d exp ~n', [X])),
+  (NewExp >= Total ->
+    format('Level up! ~n', []),
+    NewExp2 is NewExp-Total, NewLvl is FarmLevel + 1, NewTotal is (100 * NewLvl),
+    retract(farmexp(PrevExp, Total, FarmLevel)), assertz(farmexp(NewExp2, NewTotal, NewLvl)),
+    player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold),
+    retract(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)), 
+    assertz(player(Job, Level, FarmLevel, NewExp2, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)),
+    levelUpFarm,
+    (NewExp2 >= NewTotal ->
+      addFarmExp(0)
+    ;
+      true
+    )
+  ;
+    Expleft is Total-NewExp,
+    format('You need ~d more exp to level up ~n', [Expleft]),
+    retract(farmexp(PrevExp, Total, FarmLevel)), assertz(farmexp(NewExp, Total, FarmLevel)),
+    player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold),
+    retract(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)),
+    assertz(player(Job, Level, FarmLevel, NewExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold))
+  ).
+
+/* Buat Fisherman */
+
+levelUpFish:- 
+  player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold),
+  retract(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)),
+  NewFishLevel is FishLevel + 1,
+  assertz(player(Job, Level, FarmLevel, FarmExp, NewFishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)).
+
+addFishExp(X) :-
+  fishexp(PrevExp, Total, FishLevel), NewExp is PrevExp + X, 
+  (X =:= 0 -> 
+    write('You level up again!'), nl;
+    format('You gain ~d exp ~n', [X])),
+  (NewExp >= Total ->
+    format('Level up! ~n', []),
+    NewExp2 is NewExp-Total, NewLvl is FishLevel + 1, NewTotal is (100 * NewLvl),
+    retract(fishexp(PrevExp, Total, FishLevel)), assertz(fishexp(NewExp2, NewTotal, NewLvl)),
+    player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold),
+    retract(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)), 
+    assertz(player(Job, Level, FarmLevel, FarmExp, FishLevel, NewExp2, RanchLevel, RanchExp, Exp, Gold)),
+    levelUpFish,
+    (NewExp2 >= NewTotal ->
+      addFishExp(0)
+    ;
+      true
+    )
+  ;
+    Expleft is Total-NewExp,
+    format('You need ~d more exp to level up ~n', [Expleft]),
+    retract(fishexp(PrevExp, Total, FishLevel)), assertz(fishexp(NewExp, Total, FishLevel)),
+    player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold),
+    retract(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)),
+    assertz(player(Job, Level, FarmLevel, FarmExp, FishLevel, NewExp, RanchLevel, RanchExp, Exp, Gold))
+  ).
+
+/* Buat rancher */
+levelUpRanch:- 
+  player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold),
+  retract(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)),
+  NewRanchLevel is RanchLevel + 1,
+  assertz(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, NewRanchLevel, RanchExp, Exp, Gold)).
+
+addRanchExp(X) :-
+  ranchexp(PrevExp, Total, RanchLevel), NewExp is PrevExp + X, 
+  (X =:= 0 -> 
+    write('You level up again!'), nl;
+    format('You gain ~d exp ~n', [X])),
+  (NewExp >= Total ->
+    format('Level up! ~n', []),
+    NewExp2 is NewExp-Total, NewLvl is RanchLevel + 1, NewTotal is (100 * NewLvl),
+    retract(ranchexp(PrevExp, Total, RanchLevel)), assertz(ranchexp(NewExp2, NewTotal, NewLvl)),
+    player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold),
+    retract(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)), 
+    assertz(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, NewExp2, Exp, Gold)),
+    levelUpRanch,
+    (NewExp2 >= NewTotal ->
+      addRanchExp(0)
+    ;
+      true
+    )
+  ;
+    Expleft is Total-NewExp,
+    format('You need ~d more exp to level up ~n', [Expleft]),
+    retract(ranchexp(PrevExp, Total, RanchLevel)), assertz(ranchexp(NewExp, Total, RanchLevel)),
+    player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold),
+    retract(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)),
+    assertz(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, NewExp, Exp, Gold))
   ).
