@@ -128,7 +128,7 @@ throwItem :-
 	format('You have ~w ~w. How many do you want to throw?~n', [Qty, ItemName]),
 	write('> '), read(ThrowQty), nl,
 	( ThrowQty > Qty
-	-> format('You dont have enough ~w. Cancelling…', [ItemName])
+	-> format('You dont have enough ~w. Cancelling...', [ItemName])
 	; delItems(ItemName, ThrowQty),
 	format('You threw away ~w ~w.', [ThrowQty, ItemName])).
 	
