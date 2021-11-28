@@ -40,7 +40,7 @@ items(52,corn_seed,0,25,50,0,0,0).
 items(53,potato_seed,0,30,60,0,0,0).
 items(54,tomato_seed,0,50,100,0,0,0).
 /* Harvest */
-items(55,carrot,0,60,0,0,0,0).
+items(55,carrot,0,60,50,0,0,0).
 items(56,corn,0,100,0,0,0,0).
 items(57,potato,0,120,0,0,0,0).
 items(58,tomato,0,200,0,0,0,0).

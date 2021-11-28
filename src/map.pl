@@ -103,15 +103,6 @@ map :- create_map.
 
 
 
-market :-
-  map_player(P), map_object(X,Y,P,_),
-  map_marketplace(M), map_object(XM,YM,M,_),
-  (X =:= XM -> (Y =:= YM -> assertz(inMarket), write('You have entered the Market, input "exitMarket" to exit the Market'), ! ; write('You are not at the Market!'), !) ; write('You are not at the Market!'), !).
-
-
-exitMarket :-
-  (inMarket -> retract(inMarket), write('You have left the Market') ; write('You are not at the Market!')).
-
 
 
 
