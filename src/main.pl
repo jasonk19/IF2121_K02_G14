@@ -5,6 +5,8 @@ startGame :-
   ['./move.pl'],
   ['./farming.pl'],
   ['./quest.pl'],
+  ['./end.pl'],
+  ['./inventory.pl'],
   intro,
   introMsg,
   map_structure,
