@@ -1,0 +1,67 @@
+:- include('map.pl').
+:- dynamic(diary/2).
+
+/* Buat testing */
+map_object(2,3,'P').
+map_object(2,3,'H').
+time(5, 2, spring).
+
+
+addDiary(Day, DiaryContent) :-
+  asserta(diary(Day, DiaryContent)).
+
+makeListDiary(DiaryDay) :-
+  findall(Day, diary(Day,_), DiaryDay).
+
+func([]).
+func([A|X]) :-
+  format('- Day ~w', [A]),
+  func(X).
+
+displayDiary :-
+  makeListDiary(DiaryDay),
+  func(DiaryDay).
+
+
+house :-
+  map_player(P), map_object(X,Y,P),
+  map_house(H), map_object(XH,YH,H),
+  (X =:= XH -> (Y =:= YH -> assertz(inHouse), write('You have entered your House, input "exitHouse" to exit House'), nl,welcomeHouse, ! ; write('You are not at your House!'), !) ; write('You are not at your House!'), !).
+
+exitHouse :-
+  (inHouse -> retract(inHouse), write('You have left your House') ; write('You are not at your House!')).
+
+welcomeHouse :- 
+  write('What do you want to do? '), nl,
+  write('- sleep'), nl,
+  write('- writeDiary'), nl,
+  write('- readDiary'), nl,
+  write('- exit'), nl.
+
+sleep :- 
+  inHouse, write('You went to sleep'), nl, !; write('You cannot sleep outside the house'), !.
+
+writeDiary :-
+  inHouse,
+  time(_, Day, _),
+  write('Write your diary for Day '), write(Day), nl,
+  read(X), nl, 
+  addDiary(Day, X), 
+  write('Day '), write(Day), write(' entry saved'), !; 
+  write('You cannot write diary outside the house'), nl.
+
+readDiary :-
+  inHouse, 
+  write('Here are the list of your entries: '), nl,
+  displayDiary, nl,
+  write('Which entry do you want to read?'), nl,
+  read(X), process(X), !; write('You cannot write diary outside the house').
+
+process(X) :-
+  makeListDiary(DiaryDay),
+  member(X, DiaryDay),
+  diary(X,Content),
+  write('Here\'s your entry for day '), write(X), write(':'), nl,
+  write(Content), nl, !; write('No entry for day '), write(X), !.
+
+

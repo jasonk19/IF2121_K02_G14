@@ -101,13 +101,7 @@ map :- create_map.
 :- dynamic(inMarket/0).
 :- dynamic(inRanch/0).
 
-house :-
-  map_player(P), map_object(X,Y,P),
-  map_house(H), map_object(XH,YH,H),
-  (X =:= XH -> (Y =:= YH -> assertz(inHouse), write('You have entered your House, input "exitHouse" to exit House'), ! ; write('You are not at your House!'), !) ; write('You are not at your House!'), !).
 
-exitHouse :-
-  (inHouse -> retract(inHouse), write('You have left your House') ; write('You are not at your House!')).
 
 market :-
   map_player(P), map_object(X,Y,P),
