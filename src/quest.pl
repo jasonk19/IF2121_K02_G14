@@ -117,7 +117,7 @@ fulfillQuest :-
             Reward_Ranch is Qty_R * Sell_R * 2,
             Reward_Gold is Reward_Fish + Reward_Harvest + Reward_Ranch,
             Reward_Exp is 500,
-	    write('Quest finished, you gain:'),nl,write(Reward_Gold),write(' gold and '),write(Reward_Exp),write(' Exp'),
+	    write('Quest finished'),nl,
             addGold(Reward_Gold),
             addExp(Reward_Exp),
             delItems(Id_Harvest,Qty_Harvest),
