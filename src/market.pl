@@ -23,7 +23,7 @@ displayMarket :-
 	write('6. Sheep (700 golds)'), nl,
 	write('7. Cow (1000 golds)'), nl,
 	write('8. Shovel (200 golds)'), nl,
-    write('9. Stone fishing rod (300 golds)'), nl.
+    write('9. Upgrade Rod to Stone fishing rod (300 golds)'), nl.
 
 buy :-
     (inMarket 
@@ -133,7 +133,8 @@ buy :-
             Total is BuyQty * Price,
             ( Total =< Gold
                 -> addItems(stone_fishing_rod,BuyQty),nl,
-                format('You have bought ~w Wooden Fishing Rod.', [BuyQty]),nl,
+                delItems(wooden_fishing_rod,1),nl,
+                format('You have bought ~w Stone Fishing Rod.', [BuyQty]),nl,
                 reduceGold(Total),nl
                 ; write('Not enough golds'),nl))
 
