@@ -23,6 +23,7 @@ plant :-
   map_player(P), map_object(X,Y,P,_),
   digged_tile(D), map_object(XD,YD,D,_),
   map_planted(C),
+  Y1 is Y - 1,
   (X =:= XD -> (Y =:= YD -> (
     write('You have:'), nl,
     itemAmount(51,Carrotq),
@@ -36,10 +37,10 @@ plant :-
     nl,
     write('What do you want to plant?'), nl,
     read(Inp),
-    (Inp =:= 1 -> (Carrotq > 0 -> (plantSeed(X,XD,Y,YD,D,C,P,55), delItems(51,1)) ; write('You don\'t have carrot seed')) ; 
-    (Inp =:= 2 -> (Cornq > 0 -> (plantSeed(X,XD,Y,YD,D,C,P,56), delItems(52,1)) ; write('You don\'t have corn seed'))) ; 
-    (Inp =:= 3 -> (Potatoq > 0 -> (plantSeed(X,XD,Y,YD,D,C,P,57), delItems(53,1)) ; write('You don\'t have potato seed'))) ; 
-    (Inp =:= 4 -> (Tomatoq > 0 -> (plantSeed(X,XD,Y,YD,D,C,P,58), delItems(54,1)) ; write('You don\'t have tomato seed'))))) ;  
+    (Inp = 'carrot' -> (Carrotq > 0 -> (delItems(51,1), plantSeed(X,XD,Y,YD,D,C,P,55)) ; write('You don\'t have carrot seed')) ; 
+    (Inp = 'corn' -> (Cornq > 0 -> (delItems(52,1), plantSeed(X,XD,Y,YD,D,C,P,56)) ; write('You don\'t have corn seed'))) ; 
+    (Inp = 'potato' -> (Potatoq > 0 -> (delItems(53,1), plantSeed(X,XD,Y,YD,D,C,P,57)) ; write('You don\'t have potato seed'))) ; 
+    (Inp = 'tomato' -> (Tomatoq > 0 -> (delItems(54,1), plantSeed(X,XD,Y,YD,D,C,P,58)) ; write('You don\'t have tomato seed'))))) ;  
     write('You are not at digged tile!'), !) ; write('You are not at digged tile!'), !).
 
 plantSeed(X,XD,Y,YD,D,C,P,ID) :-
