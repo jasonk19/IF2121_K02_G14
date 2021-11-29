@@ -5,6 +5,7 @@
 
 /* Get quest */
 getQuest :-
+    write('You got a new quest!'),nl,nl
     write('You need to collect:'),nl,
     player(Job, _, _, _, _, _, _, _, _, _),
     (Job == 'fisherman' ->
