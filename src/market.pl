@@ -23,8 +23,7 @@ displayMarket :-
 	write('6. Sheep (700 golds)'), nl,
 	write('7. Cow (1000 golds)'), nl,
 	write('8. Shovel (200 golds)'), nl,
-	write('9. Wooden fishing rod (200 golds)'), nl,
-    write('10. Stone fishing rod (300 golds)'), nl.
+    write('9. Stone fishing rod (300 golds)'), nl.
 
 buy :-
     (inMarket 
@@ -125,20 +124,8 @@ buy :-
                     format('You have bought ~w Shovel.', [BuyQty]),nl,
                     reduceGold(Total),nl
                     ; write('Not enough golds'),nl)
-        
-            ; Num =:= 9
-                -> write('How many do you want to buy?'),nl,
-                write('> '), read(BuyQty), nl,
-                items(_,wooden_fishing_rod,_,_,Price,_,_,_),
-                player(_, _, _, _, _, _, _, _, _, Gold),
-                Total is BuyQty * Price,
-                ( Total =< Gold
-                    -> addItems(wooden_fishing_rod,BuyQty),nl,
-                    format('You have bought ~w Wooden Fishing Rod.', [BuyQty]),nl,
-                    reduceGold(Total),nl
-                    ; write('Not enough golds'),nl)
 
-            ; Num =:= 10
+            ; Num =:= 9
             -> write('How many do you want to buy?'),nl,
             write('> '), read(BuyQty), nl,
             items(_,stone_fishing_rod,_,_,Price,_,_,_),
