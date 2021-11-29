@@ -34,11 +34,10 @@ welcomeHouse :-
   write('- exitHouse'), nl.
 
 sleep :- 
-  inHouse, write('You went to sleep'), addDaySleep(Y), goalCheck, nl,
+  (inHouse -> write('You went to sleep'), addDaySleep(Y), goalCheck, nl,
   nl, 
   write('Day '), day(X), write(X), nl,
-  planted(_,_,_,Time), NTime is 0, retractall(planted(_,_,_,Time)), asserta(planted(_,_,_,NTime)),
-  !; 
+  planted(_,_,_,Time), NTime is 0, retractall(planted(_,_,_,Time)), asserta(planted(_,_,_,NTime)), !); 
   write('You cannot sleep outside the house'), !.
 
 addDaySleep(Y) :-
