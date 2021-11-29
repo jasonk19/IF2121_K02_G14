@@ -13,7 +13,7 @@ goalCheck :-
         write('Congratulations, you have collected 20000 golds!')
     ;
         (Time >= 100 ->
-            write('----------------------------GAME OVER---------------------------')
+            write('----------------------------GAME OVER---------------------------'),nl,
             write('It is already one year but you have failed to collect 20000 gold'),
         ;
             !)).
