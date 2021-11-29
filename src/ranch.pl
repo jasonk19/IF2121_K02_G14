@@ -8,10 +8,9 @@
 map_object(2,3,'P',_).
 map_object(2,3,'R',_).
 /* milktime(Prev_MilkTime, CurrentTime)*/
-milktime(0).
-eggtime(0).
-sheartime(0).
-day(20).
+milktime(-5).
+eggtime(-8).
+sheartime(-10).
 ranch :-
   map_player(P), map_object(X,Y,P,_),
   map_ranch(R), map_object(XR,YR,R,_),
@@ -23,6 +22,10 @@ exitRanch :-
   (inRanch -> retract(inRanch), write('You have left the Ranch') ; write('You are not at the Ranch!')).
 
 /* Awal-awal sudah punya chicken, sheep, sama cow yang jumlahnya tidak nol */
+inventory(21,cow,1,500,1000,1,1,1).
+inventory(22,sheep,1,350,700,1,1,1).
+inventory(23,chicken,1,250,500,1,1,1).
+
 welcomeMsg :-
     write('Welcome to the ranch! You have: ' ), nl,
     inventory(21, X, Cowq, _,_,_,_,_),
@@ -33,7 +36,6 @@ welcomeMsg :-
     write(Cowq), write(' '), write(X), nl,
     write('What do you want to do?').
 
-/* Belum Implementasi dengan waktu */
 
 randomMilkbyLevel(FarmLevel, MilkID, MilkExp) :-
   FarmLevel == 1 -> MilkID is 24, MilkExp is 1;
@@ -77,8 +79,8 @@ cow :-
           write('You got '), randomMilkbyLevel(FarmLevel, MilkID, MilkExp), addItems(MilkID, Q), nl,
           Xpgained is Q*MilkExp*2,
           /* AddExp - Belum diimplementasikan */
-          write('You gained '), write(Xpgained), write(' ranching exp!'), retract(milktime(Prev)), assertz(milktime(X)), nl,
-          addFarmExp(Xpgained), addExp(Xpgained), !
+          retract(milktime(Prev)), assertz(milktime(X)), nl,
+          addRanchExp(Xpgained), addExp(Xpgained), !
         ; 
           write('It is not yet time to milk your cow(s)'), nl,
           write('Please check again later.'), !)
@@ -97,8 +99,8 @@ sheep :-
             write('You got '), randomWoolbyLevel(FarmLevel, WoolID, WoolExp), addItems(WoolID, Q), nl, 
             Xpgained is Q*WoolExp*3,
             /* AddExp - Belum diimplementasikan */
-            write('You gained '), write(Xpgained), write(' ranching exp!'), retract(sheartime(Prev)), assertz(sheartime(X)), nl, 
-            addFarmExp(Xpgained), addExp(Xpgained), !
+            retract(sheartime(Prev)), assertz(sheartime(X)), nl, 
+            addRanchExp(Xpgained), addExp(Xpgained), !
         ; 
           write('It is not yet time to shear your sheep(s)'), nl,
           write('Please check again later.'), !)
@@ -117,8 +119,8 @@ chicken :-
             write('You got '), randomEggbyLevel(FarmLevel, EggID, EggExp), addItems(EggID, Q), nl,
             Xpgained is Q*EggExp*3,
             /* AddExp - Belum diimplementasikan */
-            write('You gained '), write(Xpgained), write(' ranching exp!'), retract(eggtime(Prev)), assertz(eggtime(X)), nl, 
-            addFarmExp(Xpgained), addExp(Xpgained), !
+            retract(eggtime(Prev)), assertz(eggtime(X)), nl, 
+            addRanchExp(Xpgained), addExp(Xpgained), !
           ; 
             write('Your chicken(s) haven\'t laid any eggs.'), nl,
             write('Please check again later.'), !)
