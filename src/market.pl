@@ -40,7 +40,7 @@ buy :-
             -> write('How many do you want to buy?'),nl,
             write('> '), read(BuyQty), nl,
             items(_,carrot_seed,_,_,Price,_,_,_),
-            player(_, _, _, _, _, _, _, _, _, _, Gold),
+            player(_, _, _, _, _, _, _, _, _, Gold),
             Total is BuyQty * Price,
             ( Total =< Gold
                 -> addItems(carrot_seed,BuyQty),nl,
@@ -171,7 +171,7 @@ sell :-
             ; delItems(ItemName, SellQty), 
             Total is SellPrice * SellQty,
             format('You sold ~w ~w. ~n', [SellQty, ItemName]),
-            addGold(Total),goalCheck).
+            addGold(Total),goalCheck)
 
         ; write('You are not at the Market!')).
 
