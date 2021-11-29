@@ -4,7 +4,7 @@
 /* Level Fishing Sementara */
 player(_, _, _, _, 10, _, _, _, _, _).
 
-/*  Validasi map & dpt exp blm */
+/*  Validasi map blm */
 
 fish :- 
 	player(_, _, _, _, FishLevel, _, _, _, _, _),
@@ -24,8 +24,10 @@ fish :-
 	),
 	
 	( Qty =:= 0
-	-> write('You didnt get anything!'), nl
+	-> write('You didnt get anything!'), nl,
+	addFishExp(5),!
 	
-	; addItems(FishID,Qty)
+	; addItems(FishID,Qty),nl,
+	addFishExp(10),!
 	
 	).
