@@ -11,6 +11,7 @@ startGame :-
   ['./house.pl'],
   ['./fishing.pl'],
   ['./market.pl'],
+  ['./items.pl'],
   intro,
   introMsg,
   map_structure,
