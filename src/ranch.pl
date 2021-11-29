@@ -21,8 +21,8 @@ exitRanch :-
 
 /* Awal-awal sudah punya chicken, sheep, sama cow yang jumlahnya tidak nol */
 inventory(21,cow,1,500,1000,1,1,1).
-inventory(22,sheep,1,350,700,1,1,1).
-inventory(23,chicken,1,250,500,1,1,1).
+inventory(22,sheep,2,350,700,1,1,1).
+inventory(23,chicken,3,250,500,1,1,1).
 
 welcomeMsg :-
     write('Welcome to the ranch! You have: ' ), nl,
