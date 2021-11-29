@@ -144,7 +144,7 @@ addFarmExp(X) :-
     )
   ;
     Expleft is Total-NewExp,
-    format('You need ~d more exp to level up ~n', [Expleft]),
+    format('You need ~d more exp to level up your farming level ~n', [Expleft]),
     retract(farmexp(PrevExp, Total, FarmLevel)), assertz(farmexp(NewExp, Total, FarmLevel)),
     player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold),
     retract(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)),
@@ -179,7 +179,7 @@ addFishExp(X) :-
     )
   ;
     Expleft is Total-NewExp,
-    format('You need ~d more exp to level up ~n', [Expleft]),
+    format('You need ~d more exp to level up your fishing level ~n', [Expleft]),
     retract(fishexp(PrevExp, Total, FishLevel)), assertz(fishexp(NewExp, Total, FishLevel)),
     player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold),
     retract(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)),
@@ -213,7 +213,7 @@ addRanchExp(X) :-
     )
   ;
     Expleft is Total-NewExp,
-    format('You need ~d more exp to level up ~n', [Expleft]),
+    format('You need ~d more exp to level up your ranching level ~n', [Expleft]),
     retract(ranchexp(PrevExp, Total, RanchLevel)), assertz(ranchexp(NewExp, Total, RanchLevel)),
     player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold),
     retract(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)),
