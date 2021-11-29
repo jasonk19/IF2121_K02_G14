@@ -35,7 +35,7 @@ plant :-
     ))))) ; write('You have no seed in your inventory.'), !)) ; write('You are not at digged tile.'), !) ; write('You are not at digged tile.'), !.
 
 plantSeed(X,XD,Y,YD,D,C,P,ID) :-
-  Y1 is Y - 1, retract(map_object(X,Y,P)), retract(map_object(XD,YD,D)), assertz(map_object(XD,YD,C,ID)), assertz(planted(XD,YD,ID,8)), asserta(map_object(X,Y1,P)), !.
+  Y1 is Y - 1, retract(map_object(X,Y,P)), retract(map_object(XD,YD,D)), assertz(map_object(XD,YD,C,ID)), asserta(planted(XD,YD,ID,8)), asserta(map_object(X,Y1,P)), !.
 
 harvest :-
   items(55,Ca,A,_,_,_,_,_),
