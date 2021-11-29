@@ -8,9 +8,6 @@ w :- inHouse, !, write('You are at your House, please exit your House to move').
 w :- inMarket, !, write('You are at the Market, please exit the Market to move').
 w :- inRanch, !, write('You are at your Ranch, please exit your Ranch to move').
 
-w :-
-  planted(_,_,_,Time),
-  (Time =:= 0 -> (!) ; NTime is Time - 1, retract(planted(_,_,_,Time)), assertz(planted(_,_,_,NTime)), !).
 
 w :-
   map_player(P), map_object(X,Y,P,_),
@@ -36,9 +33,6 @@ s :- inHouse, !, write('You are at your House, please exit your House to move').
 s :- inMarket, !, write('You are at the Market, please exit the Market to move').
 s :- inRanch, !, write('You are at your Ranch, please exit your Ranch to move').
 
-s :-
-  planted(_,_,_,Time),
-  (Time =:= 0 -> (!) ; NTime is Time - 1, retract(planted(_,_,_,Time)), assertz(planted(_,_,_,NTime)), !).
 
 s :-
   map_player(P), map_object(X,Y,P,_), map_size(S),
@@ -64,9 +58,6 @@ a :- inHouse, !, write('You are at your House, please exit your House to move').
 a :- inMarket, !, write('You are at the Market, please exit the Market to move').
 a :- inRanch, !, write('You are at your Ranch, please exit your Ranch to move').
 
-a :-
-  planted(_,_,_,Time),
-  (Time =:= 0 -> (!) ; NTime is Time - 1, retract(planted(_,_,_,Time)), assertz(planted(_,_,_,NTime)), !).
 
 a :-
   map_player(P), map_object(X,Y,P,_),
@@ -92,9 +83,6 @@ d :- inHouse, !, write('You are at your House, please exit your House to move').
 d :- inMarket, !, write('You are at the Market, please exit the Market to move').
 d :- inRanch, !, write('You are at your Ranch, please exit your Ranch to move').
 
-d :-
-  planted(_,_,_,Time),
-  (Time =:= 0 -> (!) ; NTime is Time - 1, retract(planted(_,_,_,Time)), assertz(planted(_,_,_,NTime)), !).
 
 d :-
   map_player(P), map_object(X,Y,P,_), map_size(S),
