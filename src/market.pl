@@ -1,10 +1,4 @@
-:- include('inventory.pl').
-:- include('map.pl').
-:- include('player.pl').
 
-/* Buat testing */
-map_object(2,3,'P',_).
-map_object(2,3,'M',_).
 
 market :-
     map_player(P), map_object(X,Y,P,_),

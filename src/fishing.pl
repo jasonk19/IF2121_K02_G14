@@ -1,19 +1,4 @@
-:- include('player.pl').
-:- include('inventory.pl').
-:- include('map.pl').
 
-/* Buat testing */
-map_object(1,11,'P',_).
-map_object(3,11,'o',_).
-map_object(4,11,'o',_).
-map_object(5,11,'o',_).
-map_object(2,12,'o',_).
-map_object(3,12,'o',_).
-map_object(4,12,'o',_).
-map_object(5,12,'o',_).
-
-
-/* Level Fishing Sementara */
 
 
 fish :- 
