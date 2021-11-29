@@ -171,7 +171,7 @@ sell :-
             ; delItems(ItemName, SellQty), 
             Total is SellPrice * SellQty,
             format('You sold ~w ~w. ~n', [SellQty, ItemName]),
-            addGold(Total))
+            addGold(Total),goalCheck).
 
         ; write('You are not at the Market!')).
 
