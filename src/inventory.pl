@@ -2,15 +2,15 @@
 :- dynamic(inventory/8).    
 
 inventoryCap(100).
+sumList([], 0).
+
+sumList([Head|Tail], Sum) :-
+    sumList(Tail,Sum2),
+    Sum is Head + Sum2.
 
 inventoryQty(Quantity) :-
-    findall(Qty, inventory(_,_,Qty,_,_,_,_,_), ListofQty),
-    sumList(ListofQty,Quantity).
-
-sumList([], 0).
-sumList([Head|Tail], Sum) :-
-   sumList(Tail,Sum1),
-   Sum is Head + Sum1.
+    findall(Qty, inventory(_,_,Qty,_,_,_,_,_), QtyList),
+    sumList(QtyList,Quantity).
 
 /* item baru */
 addItems(ItemName,Quantity) :-
@@ -104,14 +104,14 @@ makeListItems(ListNama, ListQuantity) :-
     findall(Nama, inventory(_,Nama,_,_,_,_,_,_), ListNama),
     findall(Quantity, inventory(_,_,Quantity,_,_,_,_,_), ListQuantity).
 
-stt2([],[]).
-stt2([A|X],[B|Y]) :-
+printItem([],[]).
+printItem([A|X],[B|Y]) :-
 	format('~w ~w ~n', [B, A]),
-    stt2(X,Y).
+    printItem(X,Y).
 	
 displayInventory :-
     makeListItems(ListNama,ListQuantity),
-    stt2(ListNama,ListQuantity).
+    printItem(ListNama,ListQuantity).
 
 inventory :- 
 	inventoryQty(Qty),
@@ -131,6 +131,4 @@ throwItem :-
 	-> format('You dont have enough ~w. Cancelling...', [ItemName])
 	; delItems(ItemName, ThrowQty),
 	format('You threw away ~w ~w.', [ThrowQty, ItemName])).
-	
-	
 	
