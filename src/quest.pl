@@ -77,10 +77,10 @@ getQuest :-
 
 /* tampilkan quest */
 displayQuest :-
-    quest(Id_Harvest, Qty_Harvest, Id_Fish, Qty_Fish, Id_Ranch, Qty_Ranch),
-    items(Id_Harvest, Name_Harvest,_,_,_,_,_,_),
-    items(Id_Fish, Name_Fish,_,_,_,_,_,_),
-    items(Id_Ranch, Name_Ranch,_,_,_,_,_,_),
+    nl,quest(Id_Harvest, Qty_Harvest, Id_Fish, Qty_Fish, Id_Ranch, Qty_Ranch),
+    items(Id_Harvest, Name_Harvest,_,Sell_H,_,_,_,_),
+    items(Id_Fish, Name_Fish,_,Sell_F,_,_,_,_),
+    items(Id_Ranch, Name_Ranch,_,Sell_R,_,_,_,_),
     write('CURRENT QUEST'),nl,
     (Qty_Harvest > 0 ->
         write('- '),write(Qty_Harvest),write(' '),write(Name_Harvest),nl
@@ -93,7 +93,13 @@ displayQuest :-
     (Qty_Ranch > 0 ->
         write('- '),write(Qty_Ranch),write(' '),write(Name_Ranch),nl
     ;
-        !).
+        !),
+    Reward_Harvest is Qty_Harvest * Sell_H * 2,
+    Reward_Fish is Qty_Fish * Sell_F * 2,
+    Reward_Ranch is Qty_Ranch * Sell_R * 2,
+    Reward_Gold is Reward_Fish + Reward_Harvest + Reward_Ranch,
+    Reward_Exp is 500,
+    nl,write('Rewards:'),nl,write(Reward_Gold),write(' gold'),nl,write(Reward_Exp),write(' Exp'),nl.
 
 /* ambil jumlah item dalam inventory */
 itemAmount(Id_Item, Amount) :-
@@ -120,7 +126,7 @@ fulfillQuest :-
             Reward_Fish is Qty_Fish * Sell_F * 2,
             Reward_Ranch is Qty_Ranch * Sell_R * 2,
             Reward_Gold is Reward_Fish + Reward_Harvest + Reward_Ranch,
-            Reward_Exp is 500,
+            Reward_Exp is 500,nl,
 	    write('Quest finished'),nl,
             addGold(Reward_Gold),
             addExp(Reward_Exp),
