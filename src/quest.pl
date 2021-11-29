@@ -6,9 +6,13 @@
 /* Get quest */
 getQuest :-
     write('You need to collect:'),nl,
-    random(0,6,Harvest),
-    random(0,6,Fish),
-    random(0,6,Ranch),
+    player(Job, _, _, _, _, _, _, _, _, _),
+    (Job == 'fisherman' ->
+        random(1,6,Fish),Harvest is 0, Ranch is 0
+    ;Job == 'farmer' ->
+        random(1,6,Harvest),Fish is 0, Ranch is 0
+    ;
+        random(1,6,Ranch),Fish is 0, Harvest is 0),
 
     /* Tentukan Harvest */
     (Harvest > 0 ->
