@@ -1,4 +1,4 @@
-:- dynamic(day/1)
+:- dynamic(day/1).
 /* day(hari) -> setiap move hari nambah 1*/
 
 move :- create_map.

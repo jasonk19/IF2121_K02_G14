@@ -28,10 +28,10 @@ plant :-
       nl,
       write('What do you want to plant?'), nl,
       read(Inp),
-      (Inp = 'carrot' -> (NCarrotq is Carrotq - 1, retract(inventory(51,Ca,Carrotq,_,_,_,_,_)), assertz(inventory(51,Ca,NCarrotq,_,_,_,_,_)), plantSeed(X,XD,Y,YD,D,C,P,55))),
-      (Inp = 'corn' -> (NCornq is Cornq - 1, retract(inventory(52,Co,Cornq,_,_,_,_,_)), assertz(inventory(52,Co,NCornq,_,_,_,_,_)), plantSeed(X,XD,Y,YD,D,C,P,56))),
-      (Inp = 'potato' -> (NPotatoq is Potatoq - 1, retract(inventory(53,Po,Potatoq,_,_,_,_,_)), assertz(inventory(53,Po,NPotatoq,_,_,_,_,_)), plantSeed(X,XD,Y,YD,D,C,P,57))),
-      (Inp = 'tomato' -> (NTomatoq is Tomatoq - 1, retract(inventory(54,To,Tomatoq,_,_,_,_,_)), assertz(inventory(54,To,NTomatoq,_,_,_,_,_)), plantSeed(X,XD,Y,YD,D,C,P,58)))
+      (Inp = 'carrot' -> (delItems(51,1), plantSeed(X,XD,Y,YD,D,C,P,55))) ;
+      (Inp = 'corn' -> (delItems(52,1), plantSeed(X,XD,Y,YD,D,C,P,56))) ;
+      (Inp = 'potato' -> (delItems(53,1), plantSeed(X,XD,Y,YD,D,C,P,57))) ;
+      (Inp = 'tomato' -> (delItems(54,1), plantSeed(X,XD,Y,YD,D,C,P,58)))
     ))))) ; write('You have no seed in your inventory.'), !)) ; write('You are not at digged tile.'), !) ; write('You are not at digged tile.'), !.
 
 plantSeed(X,XD,Y,YD,D,C,P,ID) :-
