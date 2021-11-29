@@ -29,19 +29,18 @@ plant :-
     itemAmount(52,Cornq),
     itemAmount(53,Potatoq),
     itemAmount(54,Tomatoq),
-    (Carrotq > 0 -> (Cornq > 0 -> (Potatoq > 0 -> (Tomatoq > 0 -> (
-      (Carrotq > 0 -> (write('- '), write(Carrotq), write(' '), write(Ca))),
-      (Cornq > 0 -> (write('- '), write(Cornq), write(' '), write(Co))),
-      (Potatoq > 0 -> (write('- '), write(Potatoq), write(' '), write(Po))),
-      (Tomatoq > 0 -> (write('- '), write(Tomatoq), write(' '), write(To))),
-      nl,
-      write('What do you want to plant?'), nl,
-      read(Inp),
-      (Inp = 'carrot' -> (delItems(51,1), plantSeed(X,XD,Y,YD,D,C,P,55))) ;
-      (Inp = 'corn' -> (delItems(52,1), plantSeed(X,XD,Y,YD,D,C,P,56))) ;
-      (Inp = 'potato' -> (delItems(53,1), plantSeed(X,XD,Y,YD,D,C,P,57))) ;
-      (Inp = 'tomato' -> (delItems(54,1), plantSeed(X,XD,Y,YD,D,C,P,58)))
-    ))))) ; write('You have no seed in your inventory.'), !)) ; write('You are not at digged tile.'), !) ; write('You are not at digged tile.'), !.
+    (write('1. '), write(Carrotq), write(' '), write('Carrot Seed')), nl,
+    (write('2. '), write(Cornq), write(' '), write('Corn Seed')), nl,
+    (write('3. '), write(Potatoq), write(' '), write('Potato Seed')), nl,
+    (write('4. '), write(Tomatoq), write(' '), write('Tomato Seed')), nl,
+    nl,
+    write('What do you want to plant?'), nl,
+    read(Inp),
+    (Inp =:= 1 -> (Carrotq > 0 -> (plantSeed(X,XD,Y,YD,D,C,P,55), delItems(51,1)) ; write('You don\'t have carrot seed')) ; 
+    (Inp =:= 2 -> (Cornq > 0 -> (plantSeed(X,XD,Y,YD,D,C,P,56), delItems(52,1)) ; write('You don\'t have corn seed'))) ; 
+    (Inp =:= 3 -> (Potatoq > 0 -> (plantSeed(X,XD,Y,YD,D,C,P,57), delItems(53,1)) ; write('You don\'t have potato seed'))) ; 
+    (Inp =:= 4 -> (Tomatoq > 0 -> (plantSeed(X,XD,Y,YD,D,C,P,58), delItems(54,1)) ; write('You don\'t have tomato seed'))))) ;  
+    write('You are not at digged tile!'), !) ; write('You are not at digged tile!'), !).
 
 plantSeed(X,XD,Y,YD,D,C,P,ID) :-
   Y1 is Y - 1, retract(map_object(X,Y,P)), retract(map_object(XD,YD,D)), assertz(map_object(XD,YD,C,ID)), asserta(planted(XD,YD,ID,8)), asserta(map_object(X,Y1,P)), !.
