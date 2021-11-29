@@ -1,8 +1,17 @@
+:- dynamic(day/1)
+/* day(hari) -> setiap move hari nambah 1*/
+
 move :- create_map.
 
 w :- inHouse, !, write('You are at your House, please exit your House to move').
 w :- inMarket, !, write('You are at the Market, please exit the Market to move').
 w :- inRanch, !, write('You are at your Ranch, please exit your Ranch to move').
+
+w :-
+  day(H),
+  NH is H + 1,
+  retract(day(H)), assertz(day(NH)),
+  goalCheck.
 
 w :-
   planted(_,_,_,Time),
@@ -29,6 +38,12 @@ s :- inMarket, !, write('You are at the Market, please exit the Market to move')
 s :- inRanch, !, write('You are at your Ranch, please exit your Ranch to move').
 
 s :-
+  day(H),
+  NH is H + 1,
+  retract(day(H)), assertz(day(NH)),
+  goalCheck.
+
+s :-
   planted(_,_,_,Time),
   (Time =:= 0 -> (!) ; NTime is Time - 1, retract(planted(_,_,_,Time)), assertz(planted(_,_,_,NTime)), !).
 
@@ -53,6 +68,12 @@ a :- inMarket, !, write('You are at the Market, please exit the Market to move')
 a :- inRanch, !, write('You are at your Ranch, please exit your Ranch to move').
 
 a :-
+  day(H),
+  NH is H + 1,
+  retract(day(H)), assertz(day(NH)),
+  goalCheck.
+
+a :-
   planted(_,_,_,Time),
   (Time =:= 0 -> (!) ; NTime is Time - 1, retract(planted(_,_,_,Time)), assertz(planted(_,_,_,NTime)), !).
 
@@ -75,6 +96,12 @@ a :-
 d :- inHouse, !, write('You are at your House, please exit your House to move').
 d :- inMarket, !, write('You are at the Market, please exit the Market to move').
 d :- inRanch, !, write('You are at your Ranch, please exit your Ranch to move').
+
+d :-
+  day(H),
+  NH is H + 1,
+  retract(day(H)), assertz(day(NH)),
+  goalCheck.
 
 d :-
   planted(_,_,_,Time),
