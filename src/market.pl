@@ -170,7 +170,7 @@ sell :-
             -> format('You dont have enough ~w. Cancelling...', [ItemName])
             ; delItems(ItemName, SellQty), 
             Total is SellPrice * SellQty,
-            format('You sold ~w ~w ~n.', [SellQty, ItemName]),
+            format('You sold ~w ~w. ~n', [SellQty, ItemName]),
             addGold(Total))
 
         ; write('You are not at the Market!')).
