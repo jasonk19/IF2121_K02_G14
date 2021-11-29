@@ -9,8 +9,8 @@ map_object(2,3,'P',_).
 map_object(2,3,'R',_).
 /* milktime(Prev_MilkTime, CurrentTime)*/
 milktime(-5).
-eggtime(-8).
-sheartime(-10).
+eggtime(-10).
+sheartime(-8).
 ranch :-
   map_player(P), map_object(X,Y,P,_),
   map_ranch(R), map_object(XR,YR,R,_),
