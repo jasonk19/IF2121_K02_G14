@@ -206,3 +206,10 @@ addRanchExp(X) :-
     retract(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)),
     assertz(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, NewExp, Exp, Gold))
   ).
+
+
+addGold(X) :-
+  player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold), NewGold is Gold + X,
+  retract(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)),
+  assertz(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, NewGold)),
+  format('You gain ~d gold ~n', [X]).
