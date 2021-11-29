@@ -41,6 +41,7 @@ harvest :-
   items(56,Co,B,_,_,_,_,_),
   items(57,Po,C,_,_,_,_,_),
   items(58,To,D,_,_,_,_,_),
+  player(Job,_,_,_,_,_,_,_,_,_),
   map_player(P), map_object(X,Y,P,_),
   map_planted(C), map_object(XP,YP,C,ID),
   digged_tile(D),
@@ -48,15 +49,15 @@ harvest :-
   Y1 is Y - 1,
   (X =:= XP -> (Y =:= YP -> (
     (ID =:= 55 -> (Time =:= 0 -> (
-      retract(planted(XP,YP,ID,Time)), retract(map_object(XP,YP,C,ID)), assertz(map_object(XP,YP,D,_)), asserta(map_object(X,Y1,P,_)), addItems(ID,1), write('You harvested carrot.'), !
+      retract(planted(XP,YP,ID,Time)), retract(map_object(XP,YP,C,ID)), assertz(map_object(XP,YP,D,_)), asserta(map_object(X,Y1,P,_)), addItems(ID,1), write('You harvested carrot.'), (Job == farmer -> (addFarmExp(10), addExp(10), !) ; (addFarmExp(5), addExp(5), !)), !
     ) ; write('Harvest not ready!'), !)),
     (ID =:= 56 -> (Time =:= 0 -> (
-      retract(planted(XP,YP,ID,Time)), retract(map_object(XP,YP,C,ID)), assertz(map_object(XP,YP,D,_)), asserta(map_object(X,Y1,P,_)), addItems(ID,1), write('You harvested corn.'), !
+      retract(planted(XP,YP,ID,Time)), retract(map_object(XP,YP,C,ID)), assertz(map_object(XP,YP,D,_)), asserta(map_object(X,Y1,P,_)), addItems(ID,1), write('You harvested corn.'), (Job == farmer -> (addFarmExp(10), addExp(10), !) ; (addFarmExp(5), addExp(5), !)), !
     ) ; write('Harvest not ready!'), !)),
     (ID =:= 57 -> (Time =:= 0 -> (
-      retract(planted(XP,YP,ID,Time)), retract(map_object(XP,YP,C,ID)), assertz(map_object(XP,YP,D,_)), asserta(map_object(X,Y1,P,_)), addItems(ID,1), write('You harvested potato.'), !
+      retract(planted(XP,YP,ID,Time)), retract(map_object(XP,YP,C,ID)), assertz(map_object(XP,YP,D,_)), asserta(map_object(X,Y1,P,_)), addItems(ID,1), write('You harvested potato.'), (Job == farmer -> (addFarmExp(10), addExp(10), !) ; (addFarmExp(5), addExp(5), !)), !
     ) ; write('Harvest not ready!'), !)),
     (ID =:= 58 -> (Time =:= 0 -> (
-      retract(planted(XP,YP,ID,Time)), retract(map_object(XP,YP,C,ID)), assertz(map_object(XP,YP,D,_)), asserta(map_object(X,Y1,P,_)), addItems(ID,1), write('You harvested tomato.'), !
+      retract(planted(XP,YP,ID,Time)), retract(map_object(XP,YP,C,ID)), assertz(map_object(XP,YP,D,_)), asserta(map_object(X,Y1,P,_)), addItems(ID,1), write('You harvested tomato.'), (Job == farmer -> (addFarmExp(10), addExp(10), !) ; (addFarmExp(5), addExp(5), !)), !
     ) ; write('Harvest not ready!'), !))) ; write('You are not at planted tile!'), !
   ) ; write('You are not at planted tile!'), !).
