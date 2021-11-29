@@ -17,7 +17,6 @@ w :-
   Y1 is Y - 1, (Y1 =:= 0 -> (move, nl, write('You hit a fence!'), !)).
 
 w :-
-  
   map_player(P), map_object(X,Y,P,_),
   tile_air(A), map_object(XA,YA,A,_),
   (YA =:= Y - 1 -> (XA =:= X -> (move, nl, write('You can\'t get into water!'), !))).
@@ -29,9 +28,6 @@ w :-
   goalCheck,
   map_player(P), map_object(X,Y,P,_),
   Y1 is Y - 1,
-  day(H), NH is H + 1,
-  retract(day(H)),
-  asserta(day(NH)),
   retract(map_object(X,Y,P,_)),
   asserta(map_object(X,Y1,P,_)), !,
   move, nl, write('You moved north.').
@@ -60,9 +56,6 @@ s :-
   goalCheck,
   map_player(P), map_object(X,Y,P,_),
   Y1 is Y + 1,
-  day(H), NH is H + 1,
-  retract(day(H)),
-  asserta(day(NH)),
   retract(map_object(X,Y,P,_)),
   asserta(map_object(X,Y1,P,_)), !,
   move, nl, write('You moved south.').
@@ -91,9 +84,6 @@ a :-
   goalCheck,
   map_player(P), map_object(X,Y,P,_),
   X1 is X - 1,
-  day(H), NH is H + 1,
-  retract(day(H)),
-  asserta(day(NH)),
   retract(map_object(X,Y,P,_)),
   asserta(map_object(X1,Y,P,_)), !,
   move, nl, write('You moved west.').
@@ -122,9 +112,6 @@ d :-
   goalCheck,
   map_player(P), map_object(X,Y,P,_),
   X1 is X + 1,
-  day(H), NH is H + 1,
-  retract(day(H)),
-  asserta(day(NH)),
   retract(map_object(X,Y,P,_)),
   asserta(map_object(X1,Y,P,_)), !,
   move, nl, write('You moved east.').
