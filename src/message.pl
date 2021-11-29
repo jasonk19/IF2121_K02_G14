@@ -42,6 +42,9 @@ help :-
   write('ranch.                   : masuk ke dalam ranch'), nl,
   write('chicken.                 : mengambil telur jika ayam sudah bertelur'), nl,
   write('sheep.                   : mendapatkan wool jika domba sudah siap dicukur'), nl, 
-  write('cow                      : memerah sapi jika sapi siap diperah'), nl.
-
-
+  write('cow                      : memerah sapi jika sapi siap diperah'), nl, nl,
+  write('==========================HOUSE==========================='), nl,
+  write('house.                   : masuk ke dalam house'), nl,
+  write('sleep.                   : tidur, hari bertambah delapan'), nl,
+  write('writeDiary.              : menulis diary'), nl, 
+  write('readDiary.               : membaca diary yang telah ditulis'), nl.
