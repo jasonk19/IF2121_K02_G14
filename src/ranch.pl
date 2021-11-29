@@ -5,8 +5,6 @@
 :- dynamic(sheartime/1).
 :- dynamic(eggtime/1).
 /* Buat testing */
-map_object(2,3,'P',_).
-map_object(2,3,'R',_).
 /* milktime(Prev_MilkTime, CurrentTime)*/
 milktime(-5).
 eggtime(-10).

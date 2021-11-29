@@ -13,7 +13,6 @@
 (fishexp(0, 100, 1)).
 (ranchexp(0, 100, 1)).
 player(_, 1, 1, 0, 1, 0, 1, 0, 0, 0).
-day(0).
 
 choose_job :- 
   write('Welcome to Harvest. Choose your job'), nl,

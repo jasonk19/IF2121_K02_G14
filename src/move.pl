@@ -1,17 +1,12 @@
-:- dynamic(day/1)
-/* day(hari) -> setiap move hari nambah 1*/
 
+/* day(hari) -> setiap move hari nambah 1*/
 move :- create_map.
 
 w :- inHouse, !, write('You are at your House, please exit your House to move').
 w :- inMarket, !, write('You are at the Market, please exit the Market to move').
 w :- inRanch, !, write('You are at your Ranch, please exit your Ranch to move').
 
-w :-
-  day(H),
-  NH is H + 1,
-  retract(day(H)), assertz(day(NH)),
-  goalCheck.
+
 
 w :-
   planted(_,_,_,Time),
@@ -22,11 +17,16 @@ w :-
   Y1 is Y - 1, (Y1 =:= 0 -> (move, nl, write('You hit a fence!'), !)).
 
 w :-
+  
   map_player(P), map_object(X,Y,P,_),
   tile_air(A), map_object(XA,YA,A,_),
   (YA =:= Y - 1 -> (XA =:= X -> (move, nl, write('You can\'t get into water!'), !))).
 
 w :-
+  day(H),
+  NH is H + 1,
+  retract(day(H)), assertz(day(NH)),
+  goalCheck,
   map_player(P), map_object(X,Y,P,_),
   Y1 is Y - 1,
   retract(map_object(X,Y,P,_)),
@@ -37,11 +37,6 @@ s :- inHouse, !, write('You are at your House, please exit your House to move').
 s :- inMarket, !, write('You are at the Market, please exit the Market to move').
 s :- inRanch, !, write('You are at your Ranch, please exit your Ranch to move').
 
-s :-
-  day(H),
-  NH is H + 1,
-  retract(day(H)), assertz(day(NH)),
-  goalCheck.
 
 s :-
   planted(_,_,_,Time),
@@ -57,6 +52,10 @@ s :-
   (YA =:= Y + 1 -> (XA =:= X -> (move, nl, write('You can\'t get into water!'), !))).
 
 s :-
+  day(H),
+  NH is H + 1,
+  retract(day(H)), assertz(day(NH)),
+  goalCheck,
   map_player(P), map_object(X,Y,P,_),
   Y1 is Y + 1,
   retract(map_object(X,Y,P,_)),
@@ -67,11 +66,6 @@ a :- inHouse, !, write('You are at your House, please exit your House to move').
 a :- inMarket, !, write('You are at the Market, please exit the Market to move').
 a :- inRanch, !, write('You are at your Ranch, please exit your Ranch to move').
 
-a :-
-  day(H),
-  NH is H + 1,
-  retract(day(H)), assertz(day(NH)),
-  goalCheck.
 
 a :-
   planted(_,_,_,Time),
@@ -87,6 +81,10 @@ a :-
   (XA =:= X - 1 -> (YA =:= Y -> (move, nl, write('You can\'t get into water!'), !))).
 
 a :-
+  day(H),
+  NH is H + 1,
+  retract(day(H)), assertz(day(NH)),
+  goalCheck,
   map_player(P), map_object(X,Y,P,_),
   X1 is X - 1,
   retract(map_object(X,Y,P,_)),
@@ -97,11 +95,6 @@ d :- inHouse, !, write('You are at your House, please exit your House to move').
 d :- inMarket, !, write('You are at the Market, please exit the Market to move').
 d :- inRanch, !, write('You are at your Ranch, please exit your Ranch to move').
 
-d :-
-  day(H),
-  NH is H + 1,
-  retract(day(H)), assertz(day(NH)),
-  goalCheck.
 
 d :-
   planted(_,_,_,Time),
@@ -117,6 +110,10 @@ d :-
   (XA =:= X + 1 -> (YA =:= Y -> (move, nl, write('You can\'t get into water!'), !))).
 
 d :-
+  day(H),
+  NH is H + 1,
+  retract(day(H)), assertz(day(NH)),
+  goalCheck,
   map_player(P), map_object(X,Y,P,_),
   X1 is X + 1,
   retract(map_object(X,Y,P,_)),

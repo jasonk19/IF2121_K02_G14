@@ -6,6 +6,8 @@ startGame :-
   ['./quest.pl'],
   ['./end.pl'],
   ['./inventory.pl'],
+  ['./player.pl'],
+  ['./ranch.pl'],
   intro,
   introMsg,
   map_structure,
