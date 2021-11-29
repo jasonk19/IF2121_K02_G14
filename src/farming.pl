@@ -3,11 +3,20 @@
 
 dig :-
   map_player(P), map_object(X,Y,P,_),
+  inventory(ID,_,_,_,_,_,_,_),
   digged_tile(D), 
   Y1 is Y - 1,
-  retract(map_object(X,Y,P,_)),
-  assertz(map_object(X,Y,D,_)),
-  asserta(map_object(X,Y1,P,_)), !,
+  Y2 is Y + 1,
+  (ID =:= 103 -> (
+    retract(map_object(X,Y,P,_)),
+    assertz(map_object(X,Y,D,_)),
+    assertz(map_object(X,Y2,D,_)),
+    asserta(map_object(X,Y1,P,_)), !
+  ) ; 
+    retract(map_object(X,Y,P,_)),
+    assertz(map_object(X,Y,D,_)),
+    asserta(map_object(X,Y1,P,_)), !
+  ),
   map.
 
 plant :-
