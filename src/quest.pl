@@ -110,24 +110,21 @@ fulfillQuest :-
     items(Id_Fish,_,_,Sell_F,_,_,_,_),
     items(Id_Ranch,_,_,Sell_R,_,_,_,_),
     ((Qty_H >= Qty_Harvest, Qty_F >= Qty_Fish, Qty_R >= Qty_Ranch) ->
-        displayQuest, write('Finish current quest?(y/n)'), read(X),
+        displayQuest, write('Finish current quest?(y/n) '), read(X),
         (X == 'y' ->
             Reward_Harvest is Qty_H * Sell_H * 2,
             Reward_Fish is Qty_F * Sell_F * 2,
             Reward_Ranch is Qty_R * Sell_R * 2,
             Reward_Gold is Reward_Fish + Reward_Harvest + Reward_Ranch,
             Reward_Exp is 500,
-	        write('Quest finished, you gain:'),nl,write(Reward_Gold),write(' gold and '),write(Reward_Exp),write(' Exp'),
-            player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold),
-            Total_Gold is Reward_Gold + Gold,
-            Total_Exp is Reward_Exp + Exp,
-            retract(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)),
-            asserta(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Total_Exp, Total_Gold)),
+	    write('Quest finished, you gain:'),nl,write(Reward_Gold),write(' gold and '),write(Reward_Exp),write(' Exp'),
+            addGold(Reward_Gold),
+            addExp(Reward_Exp),
             delItems(Id_Harvest,Qty_Harvest),
             delItems(Id_Fish,Qty_Fish),
             delItems(Id_Ranch,Qty_Ranch),
             retract(ongoing),
-	    retract(quest(Id_Harvest, Qty_Harvest, Id_Fish, Qty_Fish, Id_Ranch, Qty_Ranch)),
+	        retract(quest(Id_Harvest, Qty_Harvest, Id_Fish, Qty_Fish, Id_Ranch, Qty_Ranch)),
             nl,goalCheck
         ;
             !) 

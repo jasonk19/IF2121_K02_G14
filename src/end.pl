@@ -8,12 +8,11 @@ exit :-
 /* periksa tiap kali nambah waktu atau nambah gold */
 goalCheck :-
     player(_,_,_,_,_,_,_,_,_, Gold),
-    day(H),
-    /* time masih placeholder */
+    day(Time), 
     (Gold >= 20000 ->
         write('Congratulations, you have collected 20000 golds!')
     ;
-        (H >= 100 ->
+        (Time >= 100 ->
             write('You failed!')
         ;
             !)).
