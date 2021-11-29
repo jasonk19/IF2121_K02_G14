@@ -12,7 +12,7 @@
 (farmexp(0, 100, 1)).
 (fishexp(0, 100, 1)).
 (ranchexp(0, 100, 1)).
-player(_, 1, 1, 0, 1, 0, 1, 0, 0, 0).
+player(unknown, 1, 1, 0, 1, 0, 1, 0, 0, 0).
 
 choose_job :- 
   write('Welcome to Harvest. Choose your job'), nl,
