@@ -34,7 +34,7 @@ welcomeHouse :-
   write('- exitHouse'), nl.
 
 sleep :- 
-  inHouse, write('You went to sleep'), addDaySleep(Y), nl,
+  inHouse, write('You went to sleep'), addDaySleep(Y), goalCheck, nl,
   nl, 
   write('Day '), day(X), write(X), nl,
   !; 
