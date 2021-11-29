@@ -107,39 +107,39 @@ map :- create_map.
 isNearObject(Obj) :-
     map_player(P), map_object(X, Y, P, _),
     A is X-1, map_object(A, Y, Obj2, _),
-    Obj2 =:= Obj, !.
+    Obj2 == Obj, !.
 
 isNearObject(Obj) :-
     map_player(P), map_object(X, Y, P, _),
     A is X+1, map_object(A, Y, Obj2, _),
-    Obj2 =:= Obj, !.
+    Obj2 == Obj, !.
 
 isNearObject(Obj) :-
     map_player(P), map_object(X, Y, P, _),
     A is Y-1, map_object(X, A, Obj2, _),
-    Obj2 =:= Obj, !.
+    Obj2 == Obj, !.
 
 isNearObject(Obj) :-
     map_player(P), map_object(X, Y, P, _),
     A is Y+1, map_object(X, A, Obj2, _),
-    Obj2 =:= Obj, !.
+    Obj2 == Obj, !.
 
 isNearObject(Obj) :-
     map_player(P), map_object(X, Y, P, _),
     A is X-1, B is Y-1, map_object(A, B, Obj2, _),
-    Obj2 =:= Obj, !.
+    Obj2 == Obj, !.
 
 isNearObject(Obj) :-
     map_player(P), map_object(X, Y, P, _),
     A is X-1, B is Y+1, map_object(A, B, Obj2, _),
-    Obj2 =:= Obj, !.
+    Obj2 == Obj, !.
 
 isNearObject(Obj) :-
     map_player(P), map_object(X, Y, P, _),
     A is X+1, B is Y-1, map_object(A, B, Obj2, _),
-    Obj2 =:= Obj, !.
+    Obj2 == Obj, !.
 
 isNearObject(Obj) :-
     map_player(P), map_object(X, Y, P, _),
     A is X+1, B is Y+1, map_object(A, B, Obj2, _),
-    Obj2 =:= Obj, !.
+    Obj2 == Obj, !.

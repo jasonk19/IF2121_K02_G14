@@ -47,8 +47,8 @@ items(58,tomato,0,200,0,0,0,0).
 
 /******** EQUIPMENT ********/
 /* Fishing */
-items(101,wooden_fishing_rod,0,100,200,1,0,0).
-items(102,stone_fishing_rod,0,150,300,5,0,0).
+items(101,wooden_fishing_rod,0,100,200,5,0,0).
+items(102,stone_fishing_rod,0,150,300,10,0,0).
 /* Farming */
 items(103,shovel,0,100,200,0,1,0).
 /* Ranch */
