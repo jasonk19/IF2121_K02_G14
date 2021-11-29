@@ -36,7 +36,7 @@ welcomeHouse :-
   write('- sleep'), nl,
   write('- writeDiary'), nl,
   write('- readDiary'), nl,
-  write('- exit'), nl.
+  write('- exitHouse'), nl.
 
 sleep :- 
   inHouse, write('You went to sleep'), addDaySleep(Y), nl,

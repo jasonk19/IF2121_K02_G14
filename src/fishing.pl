@@ -1,12 +1,24 @@
 :- include('player.pl').
 :- include('inventory.pl').
+:- include('map.pl').
+
+/* Buat testing */
+map_object(2,11,'P',_).
+map_object(3,11,'o',_).
+map_object(4,11,'o',_).
+map_object(5,11,'o',_).
+map_object(2,12,'o',_).
+map_object(3,12,'o',_).
+map_object(4,12,'o',_).
+map_object(5,12,'o',_).
 
 /* Level Fishing Sementara */
-player(_, _, _, _, 10, _, _, _, _, _).
 
-/*  Validasi map blm */
+
+/*  rod blm */
 
 fish :- 
+	isNearObject('o'),!,
 	player(_, _, _, _, FishLevel, _, _, _, _, _),
 	( FishLevel < 5
 	-> random(1, 4, FishID), random(0,6,Qty)

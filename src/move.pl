@@ -1,12 +1,18 @@
 :- dynamic(day/1).
 /* day(hari) -> setiap move hari nambah 1*/
 
+/* day(hari) -> setiap move hari nambah 1*/
 move :- create_map.
 
 w :- inHouse, !, write('You are at your House, please exit your House to move').
 w :- inMarket, !, write('You are at the Market, please exit the Market to move').
 w :- inRanch, !, write('You are at your Ranch, please exit your Ranch to move').
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 32407356823761f325a107ada02c8398eae18def
 w :-
   planted(_,_,_,Time),
   (Time =:= 0 -> (!) ; NTime is Time - 1, retract(planted(_,_,_,Time)), assertz(planted(_,_,_,NTime)), !).
@@ -16,11 +22,16 @@ w :-
   Y1 is Y - 1, (Y1 =:= 0 -> (move, nl, write('You hit a fence!'), !)).
 
 w :-
+  
   map_player(P), map_object(X,Y,P,_),
   tile_air(A), map_object(XA,YA,A,_),
   (YA =:= Y - 1 -> (XA =:= X -> (move, nl, write('You can\'t get into water!'), !))).
 
 w :-
+  day(H),
+  NH is H + 1,
+  retract(day(H)), assertz(day(NH)),
+  goalCheck,
   map_player(P), map_object(X,Y,P,_),
   Y1 is Y - 1,
   day(H), NH is H + 1,
@@ -34,6 +45,10 @@ s :- inHouse, !, write('You are at your House, please exit your House to move').
 s :- inMarket, !, write('You are at the Market, please exit the Market to move').
 s :- inRanch, !, write('You are at your Ranch, please exit your Ranch to move').
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 32407356823761f325a107ada02c8398eae18def
 s :-
   planted(_,_,_,Time),
   (Time =:= 0 -> (!) ; NTime is Time - 1, retract(planted(_,_,_,Time)), assertz(planted(_,_,_,NTime)), !).
@@ -48,6 +63,10 @@ s :-
   (YA =:= Y + 1 -> (XA =:= X -> (move, nl, write('You can\'t get into water!'), !))).
 
 s :-
+  day(H),
+  NH is H + 1,
+  retract(day(H)), assertz(day(NH)),
+  goalCheck,
   map_player(P), map_object(X,Y,P,_),
   Y1 is Y + 1,
   day(H), NH is H + 1,
@@ -61,6 +80,10 @@ a :- inHouse, !, write('You are at your House, please exit your House to move').
 a :- inMarket, !, write('You are at the Market, please exit the Market to move').
 a :- inRanch, !, write('You are at your Ranch, please exit your Ranch to move').
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 32407356823761f325a107ada02c8398eae18def
 a :-
   planted(_,_,_,Time),
   (Time =:= 0 -> (!) ; NTime is Time - 1, retract(planted(_,_,_,Time)), assertz(planted(_,_,_,NTime)), !).
@@ -75,6 +98,10 @@ a :-
   (XA =:= X - 1 -> (YA =:= Y -> (move, nl, write('You can\'t get into water!'), !))).
 
 a :-
+  day(H),
+  NH is H + 1,
+  retract(day(H)), assertz(day(NH)),
+  goalCheck,
   map_player(P), map_object(X,Y,P,_),
   X1 is X - 1,
   day(H), NH is H + 1,
@@ -102,6 +129,10 @@ d :-
   (XA =:= X + 1 -> (YA =:= Y -> (move, nl, write('You can\'t get into water!'), !))).
 
 d :-
+  day(H),
+  NH is H + 1,
+  retract(day(H)), assertz(day(NH)),
+  goalCheck,
   map_player(P), map_object(X,Y,P,_),
   X1 is X + 1,
   day(H), NH is H + 1,
