@@ -15,7 +15,7 @@ makeListDiary(DiaryDay) :-
 
 func([]).
 func([A|X]) :-
-  format('- Day ~w', [A]),
+  format('- Day ~w ~n', [A]),
   func(X).
 
 displayDiary :-
@@ -50,7 +50,7 @@ addDaySleep(Y) :-
 
 writeDiary :-
   inHouse,
-  day(Day, _),
+  day(Day),
   write('Write your diary for Day '), write(Day), nl,
   read(X), nl, 
   addDiary(Day, X), 
