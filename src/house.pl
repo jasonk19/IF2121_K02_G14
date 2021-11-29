@@ -1,11 +1,6 @@
 :- include('map.pl').
 :- dynamic(diary/2).
 :- include('player.pl').
-/* Buat testing */
-map_object(2,3,'P',_).
-map_object(2,3,'H',_).
-day(5).
-
 
 addDiary(Day, DiaryContent) :-
   asserta(diary(Day, DiaryContent)).
@@ -39,7 +34,7 @@ welcomeHouse :-
   write('- exitHouse'), nl.
 
 sleep :- 
-  inHouse, write('You went to sleep'), addDaySleep(Y), nl,
+  inHouse, write('You went to sleep'), addDaySleep(Y), goalCheck, nl,
   nl, 
   write('Day '), day(X), write(X), nl,
   !; 

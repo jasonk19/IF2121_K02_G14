@@ -8,6 +8,7 @@ startGame :-
   ['./inventory.pl'],
   ['./player.pl'],
   ['./ranch.pl'],
+  ['./house.pl'],
   intro,
   introMsg,
   map_structure,
