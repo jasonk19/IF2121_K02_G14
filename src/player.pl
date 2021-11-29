@@ -217,4 +217,4 @@ reduceGold(X) :-
   player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold), NewGold is Gold - X,
   retract(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)),
   assertz(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, NewGold)),
-  format('You used ~d gold ~n', [X]).
+  format('You are charged ~w golds. ~n', [X]).
