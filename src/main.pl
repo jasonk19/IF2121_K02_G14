@@ -9,6 +9,8 @@ startGame :-
   ['./player.pl'],
   ['./ranch.pl'],
   ['./house.pl'],
+  ['./fishing.pl'],
+  ['./market.pl'],
   intro,
   introMsg,
   map_structure,
