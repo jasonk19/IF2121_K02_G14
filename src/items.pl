@@ -49,13 +49,6 @@ items(58,tomato,0,200,0,0,0,0).
 /* Fishing */
 items(101,wooden_fishing_rod,0,100,200,1,0,0).
 items(102,stone_fishing_rod,0,150,300,5,0,0).
-items(103,bronze_fishing_rod,0,250,500,10,0,0).
-items(104,silver_fishing_rod,0,375,750,20,0,0).
-items(105,golden_fishing_rod,0,500,1000,50,0,0).
 /* Farming */
-items(106,shovel,0,100,200,0,1,0).
+items(103,shovel,0,100,200,0,1,0).
 /* Ranch */
-items(107,milkers,0,100,200,0,0,1).
-items(108,premium_milkers,0,250,500,0,0,15).
-items(109,shears,0,100,200,0,0,1).
-items(110,premium_shears,0,250,500,0,0,15).
