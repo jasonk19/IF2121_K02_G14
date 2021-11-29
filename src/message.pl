@@ -25,6 +25,7 @@ help :-
   write('start.                   : memulai permainan'), nl,
   write('status.                  : menampilkan status'), nl,
   write('map.                     : menampilkan peta'), nl,
+  write('currentDay.              : menampilkan hari keberapa'), nl,
   write('w.                       : 1 langkah ke utara'), nl,
   write('a.                       : 1 langkah ke barat'), nl,
   write('s.                       : 1 langkah ke selatan'), nl,
@@ -48,3 +49,7 @@ help :-
   write('sleep.                   : tidur, hari bertambah delapan'), nl,
   write('writeDiary.              : menulis diary'), nl, 
   write('readDiary.               : membaca diary yang telah ditulis'), nl.
+
+currentDay :-
+  day(H),
+  write('Current day is '), write(H), !.

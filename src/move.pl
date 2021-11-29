@@ -8,12 +8,6 @@ w :- inMarket, !, write('You are at the Market, please exit the Market to move')
 w :- inRanch, !, write('You are at your Ranch, please exit your Ranch to move').
 
 w :-
-  day(H),
-  NH is H + 1,
-  retract(day(H)), assertz(day(NH)),
-  goalCheck.
-
-w :-
   planted(_,_,_,Time),
   (Time =:= 0 -> (!) ; NTime is Time - 1, retract(planted(_,_,_,Time)), assertz(planted(_,_,_,NTime)), !).
 
@@ -29,6 +23,9 @@ w :-
 w :-
   map_player(P), map_object(X,Y,P,_),
   Y1 is Y - 1,
+  day(H), NH is H + 1,
+  retract(day(H)),
+  asserta(day(NH)),
   retract(map_object(X,Y,P,_)),
   asserta(map_object(X,Y1,P,_)), !,
   move, nl, write('You moved north.').
@@ -36,12 +33,6 @@ w :-
 s :- inHouse, !, write('You are at your House, please exit your House to move').
 s :- inMarket, !, write('You are at the Market, please exit the Market to move').
 s :- inRanch, !, write('You are at your Ranch, please exit your Ranch to move').
-
-s :-
-  day(H),
-  NH is H + 1,
-  retract(day(H)), assertz(day(NH)),
-  goalCheck.
 
 s :-
   planted(_,_,_,Time),
@@ -59,6 +50,9 @@ s :-
 s :-
   map_player(P), map_object(X,Y,P,_),
   Y1 is Y + 1,
+  day(H), NH is H + 1,
+  retract(day(H)),
+  asserta(day(NH)),
   retract(map_object(X,Y,P,_)),
   asserta(map_object(X,Y1,P,_)), !,
   move, nl, write('You moved south.').
@@ -66,12 +60,6 @@ s :-
 a :- inHouse, !, write('You are at your House, please exit your House to move').
 a :- inMarket, !, write('You are at the Market, please exit the Market to move').
 a :- inRanch, !, write('You are at your Ranch, please exit your Ranch to move').
-
-a :-
-  day(H),
-  NH is H + 1,
-  retract(day(H)), assertz(day(NH)),
-  goalCheck.
 
 a :-
   planted(_,_,_,Time),
@@ -89,6 +77,9 @@ a :-
 a :-
   map_player(P), map_object(X,Y,P,_),
   X1 is X - 1,
+  day(H), NH is H + 1,
+  retract(day(H)),
+  asserta(day(NH)),
   retract(map_object(X,Y,P,_)),
   asserta(map_object(X1,Y,P,_)), !,
   move, nl, write('You moved west.').
@@ -96,12 +87,6 @@ a :-
 d :- inHouse, !, write('You are at your House, please exit your House to move').
 d :- inMarket, !, write('You are at the Market, please exit the Market to move').
 d :- inRanch, !, write('You are at your Ranch, please exit your Ranch to move').
-
-d :-
-  day(H),
-  NH is H + 1,
-  retract(day(H)), assertz(day(NH)),
-  goalCheck.
 
 d :-
   planted(_,_,_,Time),
@@ -119,6 +104,9 @@ d :-
 d :-
   map_player(P), map_object(X,Y,P,_),
   X1 is X + 1,
+  day(H), NH is H + 1,
+  retract(day(H)),
+  asserta(day(NH)),
   retract(map_object(X,Y,P,_)),
   asserta(map_object(X1,Y,P,_)), !,
   move, nl, write('You moved east.').
