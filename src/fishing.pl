@@ -2,6 +2,7 @@
 fish :- 
 	isNearObject('o'), inventory(_,wooden_fishing_rod,_,_,_,_,_,_),
 	player(_, _, _, _, FishLevel, _, _, _, _, _),
+	write('using wooden fishing rod..'),nl,
 	( FishLevel < 5
 	-> random(1, 4, FishID), random(0,6,Qty)
 	
@@ -30,6 +31,7 @@ fish :-
 fish :- 
 	isNearObject('o'), inventory(_,stone_fishing_rod,_,_,_,_,_,_),
 	player(_, _, _, _, FishLevel, _, _, _, _, _),
+	write('using stone fishing rod..'),nl,
 	( FishLevel < 5
 	-> random(1, 4, FishID), random(0,11,Qty)
 	
