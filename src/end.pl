@@ -1,7 +1,7 @@
 exit :- 
     write('Do you want to exit the game?(y/n)'),nl,read(X),
     (X == 'y' ->
-        write('Thanks for playing'),nl
+        write('Thanks for playing'),nl, halt(0)
     ;
         !).
 
@@ -14,6 +14,6 @@ goalCheck :-
     ;
         (Time >= 100 ->
             write('----------------------------GAME OVER---------------------------'),nl,
-            write('It is already one year but you have failed to collect 20000 gold')
+            write('It is already one year but you have failed to collect 20000 gold'), halt(0)
         ;
             !)).
