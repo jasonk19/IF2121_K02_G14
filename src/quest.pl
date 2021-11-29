@@ -116,9 +116,9 @@ fulfillQuest :-
     ((Qty_H >= Qty_Harvest, Qty_F >= Qty_Fish, Qty_R >= Qty_Ranch) ->
         displayQuest, write('Finish current quest?(y/n) '), read(X),
         (X == 'y' ->
-            Reward_Harvest is Qty_H * Sell_H * 2,
-            Reward_Fish is Qty_F * Sell_F * 2,
-            Reward_Ranch is Qty_R * Sell_R * 2,
+            Reward_Harvest is Qty_Harvest * Sell_H * 2,
+            Reward_Fish is Qty_Fish * Sell_F * 2,
+            Reward_Ranch is Qty_Ranch * Sell_R * 2,
             Reward_Gold is Reward_Fish + Reward_Harvest + Reward_Ranch,
             Reward_Exp is 500,
 	    write('Quest finished'),nl,
