@@ -38,27 +38,41 @@ welcomeMsg :-
 randomMilkbyLevel(FarmLevel, MilkID, MilkExp) :-
   FarmLevel == 1 -> MilkID is 24, MilkExp is 1;
   FarmLevel == 2 -> random(24, 26, M), MilkID is M, (MilkID == 24 -> MilkExp is 1; MilkExp is 2);
-  FarmLevel == 3 -> random(24, 27, M), MilkID is M, (MilkID == 24 -> MilkExp is 1; MilkID == 25 -> MilkExp is 2; MilkExp is 3).
+  FarmLevel >= 3 -> random(24, 27, M), MilkID is M, (MilkID == 24 -> MilkExp is 1; MilkID == 25 -> MilkExp is 2; MilkExp is 3).
 
 
 randomWoolbyLevel(FarmLevel, WoolID, WoolExp) :-
   FarmLevel == 1 -> WoolID is 27, WoolExp is 1;
   FarmLevel == 2 -> random(27, 29, W), WoolID is W, (WoolID == 27 -> WoolExp is 1; WoolExp is 2);
-  FarmLevel == 3 -> random(27, 30, W), WoolID is W, (WoolID == 27 -> WoolExp is 1; WoolID == 28 -> WoolExp is 2; WoolExp is 3).
+  FarmLevel >= 3 -> random(27, 30, W), WoolID is W, (WoolID == 27 -> WoolExp is 1; WoolID == 28 -> WoolExp is 2; WoolExp is 3).
 
 randomEggbyLevel(FarmLevel, EggID, EggExp) :-
   FarmLevel == 1 -> EggID is 30, EggExp is 1;
   FarmLevel == 2 -> random(30, 32, E), EggID is E, (EggID == 30 -> EggExp is 1; EggExp is 2);
-  FarmLevel == 3 -> random(30, 33, E), EggID is E, (EggID == 30 -> EggExp is 1; EggID == 31 -> EggExp is 2; EggExp is 3).
+  FarmLevel >= 3 -> random(30, 33, E), EggID is E, (EggID == 30 -> EggExp is 1; EggID == 31 -> EggExp is 2; EggExp is 3).
 
+milkDuration(FarmLevel, X) :-
+  FarmLevel == 1 -> X is 5;
+  FarmLevel == 2 -> X is 4;
+  FarmLevel >= 3 -> X is 3.
+
+shearDuration(FarmLevel, X) :-
+  FarmLevel == 1 -> X is 8;
+  FarmLevel == 2 -> X is 7;
+  FarmLevel >= 3 -> X is 5.
+
+eggDuration(FarmLevel, X) :-
+  FarmLevel == 1 -> X is 10;
+  FarmLevel == 2 -> X is 9;
+  FarmLevel >= 3 -> X is 7.
 
 
 cow :-
     player(Job, _, FarmLevel, FarmExp,_,_,_,_,Exp,_),
     (Job == rancher ->
       (inRanch ->
-        (day(X), milktime(Prev), (X - Prev) >= 5 -> 
-          inventory(21, _, Q,_,_,_,_,_),
+        (day(X), milktime(Prev), milkDuration(FarmLevel, Y), (X - Prev) >= Y -> 
+          inventory(21,_,Q,_,_,_,_,_),
           write('You milked your cow!'), nl,
           write('You got '), randomMilkbyLevel(FarmLevel, MilkID, MilkExp), addItems(MilkID, Q), nl,
           Xpgained is Q*MilkExp*2,
@@ -76,7 +90,7 @@ sheep :-
     player(Job, _, FarmLevel, FarmExp,_,_,_,_,Exp,_),
     (Job == rancher ->
       (inRanch ->
-        (day(X), sheartime(Prev), (X - Prev) >= 8 ->
+        (day(X), sheartime(Prev), shearDuration(FarmLevel, Y), (X - Prev) >= Y ->
             inventory(22, _, Q,_,_,_,_,_),
             write('You sheared your sheep!'), nl,
             write('You got '), randomWoolbyLevel(FarmLevel, WoolID, WoolExp), addItems(WoolID, Q), nl, 
@@ -95,7 +109,7 @@ chicken :-
     player(Job, _, FarmLevel, FarmExp,_,_,_,_,Exp,_),
     (Job == rancher ->
         (inRanch ->
-          (day(X), eggtime(Prev), (X - Prev) >= 10 ->
+          (day(X), eggtime(Prev), eggDuration(FarmLevel, Y), (X - Prev) >= Y ->
             inventory(23, _, Q,_,_,_,_,_),
             write('Your chicken lays '), write(Q), write(' eggs.'), nl,
             write('You got '), randomEggbyLevel(FarmLevel, EggID, EggExp), addItems(EggID, Q), nl,
