@@ -1,5 +1,5 @@
-:- dynamic(planted/2).
-/* planted(id, time) */
+:- dynamic(planted/4).
+/* planted(X,Y,id,time) */
 
 dig :-
   map_player(P), map_object(X,Y,P,_),
@@ -34,7 +34,7 @@ plant :-
   ) ; write('You are not at digged tile!'), !) ; write('You are not at digged tile!'), !).
 
 plantSeed(X,XD,Y,YD,D,C,P,ID) :-
-  Y1 is Y - 1, retract(map_object(X,Y,P)), retract(map_object(XD,YD,D)), assertz(map_object(XD,YD,C,ID)), assertz(planted(ID,5)), asserta(map_object(X,Y1,P)), !.
+  Y1 is Y - 1, retract(map_object(X,Y,P)), retract(map_object(XD,YD,D)), assertz(map_object(XD,YD,C,ID)), assertz(planted(XD,YD,ID,8)), asserta(map_object(X,Y1,P)), !.
 
 harvest :-
   items(55,Ca,A,_,_,_,_,_),
@@ -44,19 +44,19 @@ harvest :-
   map_player(P), map_object(X,Y,P,_),
   map_planted(C), map_object(XP,YP,C,ID),
   digged_tile(D),
-  planted(ID,Time),
+  planted(XP,YP,ID,Time),
   Y1 is Y - 1,
   (X =:= XP -> (Y =:= YP -> (
     (ID =:= 55 -> (Time =:= 0 -> (
-      retract(planted(ID,Time)), retract(map_object(XP,YP,C,ID)), assertz(map_object(XP,YP,D,_)), asserta(map_object(X,Y1,P,_)), addItems(ID,1), write('You harvested carrot.'), !
-    ))),
+      retract(planted(XP,YP,ID,Time)), retract(map_object(XP,YP,C,ID)), assertz(map_object(XP,YP,D,_)), asserta(map_object(X,Y1,P,_)), addItems(ID,1), write('You harvested carrot.'), !
+    ) ; write('Harvest not ready!'), !)),
     (ID =:= 56 -> (Time =:= 0 -> (
-      retract(planted(ID,Time)), retract(map_object(XP,YP,C,ID)), assertz(map_object(XP,YP,D,_)), asserta(map_object(X,Y1,P,_)), addItems(ID,1), write('You harvested corn.'), !
-    ))),
+      retract(planted(XP,YP,ID,Time)), retract(map_object(XP,YP,C,ID)), assertz(map_object(XP,YP,D,_)), asserta(map_object(X,Y1,P,_)), addItems(ID,1), write('You harvested corn.'), !
+    ) ; write('Harvest not ready!'), !)),
     (ID =:= 57 -> (Time =:= 0 -> (
-      retract(planted(ID,Time)), retract(map_object(XP,YP,C,ID)), assertz(map_object(XP,YP,D,_)), asserta(map_object(X,Y1,P,_)), addItems(ID,1), write('You harvested potato.'), !
-    ))),
+      retract(planted(XP,YP,ID,Time)), retract(map_object(XP,YP,C,ID)), assertz(map_object(XP,YP,D,_)), asserta(map_object(X,Y1,P,_)), addItems(ID,1), write('You harvested potato.'), !
+    ) ; write('Harvest not ready!'), !)),
     (ID =:= 58 -> (Time =:= 0 -> (
-      retract(planted(ID,Time)), retract(map_object(XP,YP,C,ID)), assertz(map_object(XP,YP,D,_)), asserta(map_object(X,Y1,P,_)), addItems(ID,1), write('You harvested tomato.'), !
-    )))) ; write('You are not at planted tile!'), !
+      retract(planted(XP,YP,ID,Time)), retract(map_object(XP,YP,C,ID)), assertz(map_object(XP,YP,D,_)), asserta(map_object(X,Y1,P,_)), addItems(ID,1), write('You harvested tomato.'), !
+    ) ; write('Harvest not ready!'), !))) ; write('You are not at planted tile!'), !
   ) ; write('You are not at planted tile!'), !).
