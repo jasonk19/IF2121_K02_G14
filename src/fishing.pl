@@ -1,6 +1,4 @@
 
-
-
 fish :- 
 	isNearObject('o'), inventory(_,wooden_fishing_rod,_,_,_,_,_,_),
 	player(_, _, _, _, FishLevel, _, _, _, _, _),

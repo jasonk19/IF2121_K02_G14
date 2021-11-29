@@ -30,6 +30,7 @@ choose_job :-
 
 character(ID) :-
   ID =:= 0 -> write('You choose Fisherman, let\'s start fishing'), 
+  addItems(wooden_fishing_rod,1),
   player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold),
   retract(player(Job, Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)),
   assertz(player('fisherman', Level, FarmLevel, FarmExp, FishLevel, FishExp, RanchLevel, RanchExp, Exp, Gold)), !.
