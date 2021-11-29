@@ -16,22 +16,23 @@ plant :-
   map_planted(C),
   (X =:= XD -> (Y =:= YD -> (
     write('You have:'), nl,
-    inventory(51,Ca,Carrotq,_,_,_,_,_),
-    inventory(52,Co,Cornq,_,_,_,_,_),
-    inventory(53,Po,Potatoq,_,_,_,_,_),
-    inventory(54,To,Tomatoq,_,_,_,_,_),
-    (Carrotq > 0 -> (write('- '), write(Carrotq), write(' '), write(Ca))),
-    (Cornq > 0 -> (write('- '), write(Cornq), write(' '), write(Co))),
-    (Potatoq > 0 -> (write('- '), write(Potatoq), write(' '), write(Po))),
-    (Tomatoq > 0 -> (write('- '), write(Tomatoq), write(' '), write(To))),
-    nl,
-    write('What do you want to plant?'), nl,
-    read(Inp),
-    (Inp = 'carrot' -> (NCarrotq is Carrotq - 1, retract(inventory(51,Ca,Carrotq,_,_,_,_,_)), assertz(inventory(51,Ca,NCarrotq,_,_,_,_,_)), plantSeed(X,XD,Y,YD,D,C,P,55))),
-    (Inp = 'corn' -> (NCornq is Cornq - 1, retract(inventory(52,Co,Cornq,_,_,_,_,_)), assertz(inventory(52,Co,NCornq,_,_,_,_,_)), plantSeed(X,XD,Y,YD,D,C,P,56))),
-    (Inp = 'potato' -> (NPotatoq is Potatoq - 1, retract(inventory(53,Po,Potatoq,_,_,_,_,_)), assertz(inventory(53,Po,NPotatoq,_,_,_,_,_)), plantSeed(X,XD,Y,YD,D,C,P,57))),
-    (Inp = 'tomato' -> (NTomatoq is Tomatoq - 1, retract(inventory(54,To,Tomatoq,_,_,_,_,_)), assertz(inventory(54,To,NTomatoq,_,_,_,_,_)), plantSeed(X,XD,Y,YD,D,C,P,58)))
-  ) ; write('You are not at digged tile!'), !) ; write('You are not at digged tile!'), !).
+    itemAmount(51,Carrotq),
+    itemAmount(52,Cornq),
+    itemAmount(53,Potatoq),
+    itemAmount(54,Tomatoq),
+    (Carrotq > 0 -> (Cornq > 0 -> (Potatoq > 0 -> (Tomatoq > 0 -> (
+      (Carrotq > 0 -> (write('- '), write(Carrotq), write(' '), write(Ca))),
+      (Cornq > 0 -> (write('- '), write(Cornq), write(' '), write(Co))),
+      (Potatoq > 0 -> (write('- '), write(Potatoq), write(' '), write(Po))),
+      (Tomatoq > 0 -> (write('- '), write(Tomatoq), write(' '), write(To))),
+      nl,
+      write('What do you want to plant?'), nl,
+      read(Inp),
+      (Inp = 'carrot' -> (NCarrotq is Carrotq - 1, retract(inventory(51,Ca,Carrotq,_,_,_,_,_)), assertz(inventory(51,Ca,NCarrotq,_,_,_,_,_)), plantSeed(X,XD,Y,YD,D,C,P,55))),
+      (Inp = 'corn' -> (NCornq is Cornq - 1, retract(inventory(52,Co,Cornq,_,_,_,_,_)), assertz(inventory(52,Co,NCornq,_,_,_,_,_)), plantSeed(X,XD,Y,YD,D,C,P,56))),
+      (Inp = 'potato' -> (NPotatoq is Potatoq - 1, retract(inventory(53,Po,Potatoq,_,_,_,_,_)), assertz(inventory(53,Po,NPotatoq,_,_,_,_,_)), plantSeed(X,XD,Y,YD,D,C,P,57))),
+      (Inp = 'tomato' -> (NTomatoq is Tomatoq - 1, retract(inventory(54,To,Tomatoq,_,_,_,_,_)), assertz(inventory(54,To,NTomatoq,_,_,_,_,_)), plantSeed(X,XD,Y,YD,D,C,P,58)))
+    ))))) ; write('You have no seed in your inventory.'), !)) ; write('You are not at digged tile.'), !) ; write('You are not at digged tile.'), !.
 
 plantSeed(X,XD,Y,YD,D,C,P,ID) :-
   Y1 is Y - 1, retract(map_object(X,Y,P)), retract(map_object(XD,YD,D)), assertz(map_object(XD,YD,C,ID)), assertz(planted(XD,YD,ID,8)), asserta(map_object(X,Y1,P)), !.
